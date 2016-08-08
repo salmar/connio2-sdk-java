@@ -66,8 +66,8 @@ public class Connio {
             }
 
             try {
-                Connio.apiClient = Connio.executorService == null ? new ConnioApiClient(Connio.username, Connio.password) :
-                        new ConnioApiClient(Connio.username, Connio.password, Connio.executorService);
+                Connio.apiClient = Connio.executorService == null ? new ConnioApiClientImpl(Connio.username, Connio.password) :
+                        new ConnioApiClientImpl(Connio.username, Connio.password, Connio.executorService);
 
             } catch (Exception e) {
                 throw new RuntimeException("Error initialising ConnioApiClient", e);
@@ -82,7 +82,7 @@ public class Connio {
     }
 
     private static synchronized void invalidate() {
-        if (Connio.apiClient != null) Connio.apiClient.terminate();
+        if (Connio.apiClient != null) ((ConnioApiClientImpl)Connio.apiClient).terminate();
         Connio.apiClient = null;
     }
 }
