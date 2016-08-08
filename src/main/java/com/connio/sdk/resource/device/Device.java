@@ -1,5 +1,6 @@
 package com.connio.sdk.resource.device;
 
+import com.connio.sdk.request.alert.AlertRemoveIncidentRequest;
 import com.connio.sdk.request.data.DeviceStateFetchRequest;
 import com.connio.sdk.request.data.ReadDataRequest;
 import com.connio.sdk.request.data.ReadMethodRequest;
@@ -10,6 +11,7 @@ import com.connio.sdk.request.device.DeviceUpdateRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileFetchRequest;
 import com.connio.sdk.resource.Location;
 import com.connio.sdk.resource.Resource;
+import com.connio.sdk.resource.alert.Alert;
 import com.connio.sdk.resource.data.DataFeed;
 import com.connio.sdk.resource.method.Method;
 import com.connio.sdk.resource.property.Property;
@@ -213,6 +215,10 @@ public class Device extends Resource {
 
     public DeviceStateFetchRequest state() {
         return new DeviceStateFetchRequest(this);
+    }
+
+    public AlertRemoveIncidentRequest removeIncident(Alert alert) {
+        return new AlertRemoveIncidentRequest(this, alert);
     }
 
     @Override
