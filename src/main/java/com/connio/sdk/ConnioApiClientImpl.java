@@ -28,6 +28,11 @@ public class ConnioApiClientImpl implements ConnioApiClient {
         this.executorService = executorService;
     }
 
+    public ConnioApiClientImpl(String key, String secret, String endpoint, ExecutorService executorService) throws Exception {
+        this(new JerseyClient(key, secret, endpoint, executorService));
+        this.executorService = executorService;
+    }
+
     public ConnioApiClientImpl(HttpClient httpClient) throws Exception {
         this.httpClient = httpClient;
     }
