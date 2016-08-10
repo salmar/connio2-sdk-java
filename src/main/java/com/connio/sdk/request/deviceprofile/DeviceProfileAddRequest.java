@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
 
@@ -108,5 +110,25 @@ public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
     @JsonIgnore
     protected DeviceProfile parseEntity(Response response) {
         return response.readEntity(DeviceProfile.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeviceProfileAddRequest that = (DeviceProfileAddRequest) o;
+        return Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getBaseProfile(), that.getBaseProfile()) &&
+                Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(getDeviceClass(), that.getDeviceClass()) &&
+                Objects.equals(getVendorName(), that.getVendorName()) &&
+                Objects.equals(getProductName(), that.getProductName()) &&
+                Objects.equals(getImageUri(), that.getImageUri()) &&
+                Objects.equals(getTags(), that.getTags());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getBaseProfile(), getDescription(), getDeviceClass(), getVendorName(), getProductName(), getImageUri(), getTags());
     }
 }

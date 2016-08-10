@@ -7,6 +7,8 @@ import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeviceProfileUpdateRequest extends ResourceUpdateRequest<DeviceProfile> {
 
@@ -102,5 +104,25 @@ public class DeviceProfileUpdateRequest extends ResourceUpdateRequest<DeviceProf
     @Override
     protected DeviceProfile parseEntity(Response response) {
         return response.readEntity(DeviceProfile.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeviceProfileUpdateRequest that = (DeviceProfileUpdateRequest) o;
+        return Objects.equals(deviceProfileId, that.deviceProfileId) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(getDeviceClass(), that.getDeviceClass()) &&
+                Objects.equals(getVendorName(), that.getVendorName()) &&
+                Objects.equals(getProductName(), that.getProductName()) &&
+                Objects.equals(getImageUri(), that.getImageUri()) &&
+                Objects.equals(getTags(), that.getTags());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deviceProfileId, getName(), getDescription(), getDeviceClass(), getVendorName(), getProductName(), getImageUri(), getTags());
     }
 }
