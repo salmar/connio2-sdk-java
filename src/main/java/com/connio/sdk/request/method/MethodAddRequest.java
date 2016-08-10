@@ -14,13 +14,13 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MethodAddRequest extends ResourceAddRequest<Method> {
 
-    private String deviceProfileId;
+    private final String deviceProfileId;
 
-    private String name;
+    private final String name;
 
-    private Method.Access access;
+    private final Method.Access access;
 
-    private MethodImpl methodImpl;
+    private final MethodImpl methodImpl;
 
     private Long inputPropTTL;
 
@@ -39,36 +39,16 @@ public class MethodAddRequest extends ResourceAddRequest<Method> {
         return deviceProfileId;
     }
 
-    public MethodAddRequest setDeviceProfileId(String deviceProfileId) {
-        this.deviceProfileId = deviceProfileId;
-        return this;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public MethodAddRequest setName(String name) {
-        this.name = name;
-        return this;
     }
 
     public Method.Access getAccess() {
         return access;
     }
 
-    public MethodAddRequest setAccess(Method.Access access) {
-        this.access = access;
-        return this;
-    }
-
     public MethodImpl getMethodImpl() {
         return methodImpl;
-    }
-
-    public MethodAddRequest setMethodImpl(MethodImpl methodImpl) {
-        this.methodImpl = methodImpl;
-        return this;
     }
 
     public Long getInputPropTTL() {

@@ -6,18 +6,17 @@ import com.connio.sdk.ConnioApiClientImpl;
 import com.connio.sdk.http.JerseyClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
-import com.connio.sdk.request.alert.AlertAddRequest;
 import com.connio.sdk.request.alert.AlertDeleteRequest;
-import com.connio.sdk.request.alert.AlertUpdateRequest;
 import com.connio.sdk.request.method.MethodAddRequest;
 import com.connio.sdk.request.method.MethodDeleteRequest;
 import com.connio.sdk.request.method.MethodUpdateRequest;
-import com.connio.sdk.resource.alert.*;
-import com.connio.sdk.resource.device.Device;
+import com.connio.sdk.request.property.PropertyAddRequest;
+import com.connio.sdk.request.property.PropertyDeleteRequest;
+import com.connio.sdk.request.property.PropertyUpdateRequest;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.connio.sdk.resource.method.Method;
 import com.connio.sdk.resource.method.MethodImpl;
-import com.google.common.collect.ImmutableList;
+import com.connio.sdk.resource.property.Property;
 import com.google.common.collect.ImmutableSet;
 import mockit.Expectations;
 import mockit.Mocked;
@@ -27,7 +26,7 @@ import org.junit.Test;
 
 import java.util.concurrent.CompletableFuture;
 
-public class MethodRequestsTest {
+public class PropertyRequestsTest {
 
     @Mocked
     private JerseyClient httpClient;
@@ -38,10 +37,9 @@ public class MethodRequestsTest {
     private final DeviceProfile dp = new DeviceProfile("_dpf_125632547856985412", "dp", "_acc_1256985412563258", null,
             "description", null, null, null, null, ImmutableSet.<String>of(), DateTime.now(), null);
 
-    private final Method method = new Method("_mth_125695874512365258", "method", dp.getAccountId(), dp.getId(), null,
-            Method.Access.Private, false, "methodQName", new MethodImpl(null, "return true;", MethodImpl.ExecType.Javascript),
-            1L, "_prp_125632547852369854", "_prp_1259854563258745632", DateTime.now(), null);
-
+    private final Property property = new Property("_prp_159357456987452136", "temperature", dp.getAccountId(), dp.getId(),
+            null, false, Property.Type.Number, Property.Access.Public, Property.PublishPolicy.Always, false, "propertyQName",
+            null, null, null, DateTime.now(), null);
 
     @Before
     public void setUp() throws Exception {
@@ -51,13 +49,14 @@ public class MethodRequestsTest {
     @Test
     public void methodCreationShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final MethodAddRequest addRequest = new MethodAddRequest(dp, method.getName(), method.getAccess(), method.getMethodImpl())
-                    .setInputId(method.getInputId().orElse(""))
-                    .setInputPropTTL(method.getInputPropTTL().orElse(null))
-                    .setOutputId(method.getOutputId().orElse(""));
+            final PropertyAddRequest addRequest = new PropertyAddRequest(dp, property.getName(), property.getType())
+                    .setAccess(property.getAccess())
+                    .setBoundaries(property.getBoundaries().orElse(null))
+                    .setMeasurement(property.getMeasurement())
+                    .setPublish(property.getPublish())
+                    .setRetention(property.getRetention());
 
-
-            final String path = "deviceprofiles/" + dp.getId() + "/methods";
+            final String path = "deviceprofiles/" + dp.getId() + "/properties";
             final Request request = Request.post(path, addRequest);
             response.isSuccess(); result = true;
             httpClient.request(request); times = 4;
@@ -66,10 +65,12 @@ public class MethodRequestsTest {
 
         final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
-        final MethodAddRequest request = Method.create(dp, method.getName(), method.getAccess(), method.getMethodImpl())
-                .setInputId(method.getInputId().orElse(""))
-                .setInputPropTTL(method.getInputPropTTL().orElse(null))
-                .setOutputId(method.getOutputId().orElse(""));
+        final PropertyAddRequest request = Property.create(dp, property.getName(), property.getType())
+                .setAccess(property.getAccess())
+                .setBoundaries(property.getBoundaries().orElse(null))
+                .setMeasurement(property.getMeasurement())
+                .setPublish(property.getPublish())
+                .setRetention(property.getRetention());
 
             request.execute();
             request.executeAsync();
@@ -77,10 +78,12 @@ public class MethodRequestsTest {
             request.execute(apiClient);
             request.executeAsync(apiClient);
 
-        final MethodAddRequest request2 = dp.addMethod(method.getName(), method.getAccess(), method.getMethodImpl())
-                .setInputId(method.getInputId().orElse(""))
-                .setInputPropTTL(method.getInputPropTTL().orElse(null))
-                .setOutputId(method.getOutputId().orElse(""));
+        final PropertyAddRequest request2 = dp.addProperty(property.getName(), property.getType())
+                .setAccess(property.getAccess())
+                .setBoundaries(property.getBoundaries().orElse(null))
+                .setMeasurement(property.getMeasurement())
+                .setPublish(property.getPublish())
+                .setRetention(property.getRetention());
 
         request2.execute();
         request2.executeAsync();
@@ -91,20 +94,21 @@ public class MethodRequestsTest {
 
     @Test(expected=IllegalArgumentException.class)
     public void updateRequestShouldReturnIllegalArgumentExceptionWhenInvalidOwnerId() throws Exception {
-        new MethodUpdateRequest("wrong_owner_Id", method.getId());
+        new MethodUpdateRequest("wrong_owner_Id", property.getId());
     }
 
     @Test
     public void methodUpdateRequestShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final MethodUpdateRequest updateRequest = new MethodUpdateRequest(dp, method.getId())
-                    .setInputId(method.getInputId().orElse(""))
-                    .setInputPropTTL(method.getInputPropTTL().orElse(null))
-                    .setMethodImpl(method.getMethodImpl())
-                    .setName(method.getName())
-                    .setOutputId(method.getOutputId().orElse(""));
+            final PropertyUpdateRequest updateRequest = new PropertyUpdateRequest(dp, property.getId())
+                    .setAccess(property.getAccess())
+                    .setBoundaries(property.getBoundaries().orElse(null))
+                    .setMeasurement(property.getMeasurement())
+                    .setPublish(property.getPublish())
+                    .setRetention(property.getRetention())
+                    .setName(property.getName());
 
-            final String path = "deviceprofiles/" + dp.getId() + "/methods/" + method.getId();
+            final String path = "deviceprofiles/" + dp.getId() + "/properties/" + property.getId();
             final Request request = Request.put(path, updateRequest);
             response.isSuccess(); result = true;
             httpClient.request(request); times = 2;
@@ -113,12 +117,13 @@ public class MethodRequestsTest {
 
         final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
-        final MethodUpdateRequest request = method.update()
-                .setInputId(method.getInputId().orElse(""))
-                .setInputPropTTL(method.getInputPropTTL().orElse(null))
-                .setMethodImpl(method.getMethodImpl())
-                .setName(method.getName())
-                .setOutputId(method.getOutputId().orElse(""));
+        final PropertyUpdateRequest request = property.update()
+                .setAccess(property.getAccess())
+                .setBoundaries(property.getBoundaries().orElse(null))
+                .setMeasurement(property.getMeasurement())
+                .setPublish(property.getPublish())
+                .setRetention(property.getRetention())
+                .setName(property.getName());
 
         request.execute();
         request.executeAsync();
@@ -130,7 +135,7 @@ public class MethodRequestsTest {
     @Test
     public void methodDeleteRequestShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final String path = "deviceprofiles/" + dp.getId() + "/methods/" + method.getId();
+            final String path = "deviceprofiles/" + dp.getId() + "/properties/" + property.getId();
             final Request request = Request.delete(path);
             response.isSuccess(); result = true;
             httpClient.request(request); times = 2;
@@ -138,7 +143,7 @@ public class MethodRequestsTest {
         }};
 
         final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
-        final MethodDeleteRequest request = method.delete();
+        final PropertyDeleteRequest request = property.delete();
 
         request.execute();
         request.executeAsync();
@@ -149,6 +154,6 @@ public class MethodRequestsTest {
 
     @Test(expected=IllegalArgumentException.class)
     public void deleteRequestShouldReturnIllegalArgumentExceptionWhenInvalidOwnerId() {
-        new AlertDeleteRequest("wrong_owner_Id", method.getId());
+        new AlertDeleteRequest("wrong_owner_Id", property.getId());
     }
 }

@@ -10,6 +10,8 @@ import com.connio.sdk.resource.property.Property;
 import com.connio.sdk.resource.property.Retention;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PropertyUpdateRequest extends ResourceUpdateRequest<Property> {
 
@@ -18,8 +20,6 @@ public class PropertyUpdateRequest extends ResourceUpdateRequest<Property> {
     private final String propertyId;
 
     private String name;
-
-    private Integer period;
 
     private Property.Access access;
 
@@ -51,15 +51,6 @@ public class PropertyUpdateRequest extends ResourceUpdateRequest<Property> {
 
     public PropertyUpdateRequest setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public Integer getPeriod() {
-        return period;
-    }
-
-    public PropertyUpdateRequest setPeriod(Integer period) {
-        this.period = period;
         return this;
     }
 
@@ -117,5 +108,26 @@ public class PropertyUpdateRequest extends ResourceUpdateRequest<Property> {
     @Override
     protected Property parseEntity(Response response) {
         return response.readEntity(Property.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PropertyUpdateRequest that = (PropertyUpdateRequest) o;
+        return Objects.equals(deviceProfileId, that.deviceProfileId) &&
+                Objects.equals(propertyId, that.propertyId) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getAccess(), that.getAccess()) &&
+                Objects.equals(getPublish(), that.getPublish()) &&
+                Objects.equals(getMeasurement(), that.getMeasurement()) &&
+                Objects.equals(getBoundaries(), that.getBoundaries()) &&
+                Objects.equals(getRetention(), that.getRetention());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deviceProfileId, propertyId, getName(), getAccess(), getPublish(), getMeasurement(),
+                getBoundaries(), getRetention());
     }
 }

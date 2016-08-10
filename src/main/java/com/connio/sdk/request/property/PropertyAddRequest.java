@@ -10,12 +10,14 @@ import com.connio.sdk.resource.property.Property;
 import com.connio.sdk.resource.property.Retention;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PropertyAddRequest extends ResourceAddRequest<Property> {
 
-    private String name;
+    private final String name;
 
-    private Property.Type type;
+    private final Property.Type type;
 
     private String deviceProfileId;
 
@@ -39,18 +41,8 @@ public class PropertyAddRequest extends ResourceAddRequest<Property> {
         return name;
     }
 
-    public PropertyAddRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
-
     public Property.Type getType() {
         return type;
-    }
-
-    public PropertyAddRequest setType(Property.Type type) {
-        this.type = type;
-        return this;
     }
 
     public Property.Access getAccess() {
@@ -107,5 +99,26 @@ public class PropertyAddRequest extends ResourceAddRequest<Property> {
     @Override
     protected Property parseEntity(Response response) {
         return response.readEntity(Property.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PropertyAddRequest that = (PropertyAddRequest) o;
+        return Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getType(), that.getType()) &&
+                Objects.equals(deviceProfileId, that.deviceProfileId) &&
+                Objects.equals(getAccess(), that.getAccess()) &&
+                Objects.equals(getPublish(), that.getPublish()) &&
+                Objects.equals(getMeasurement(), that.getMeasurement()) &&
+                Objects.equals(getBoundaries(), that.getBoundaries()) &&
+                Objects.equals(getRetention(), that.getRetention());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getType(), deviceProfileId, getAccess(), getPublish(), getMeasurement(),
+                getBoundaries(), getRetention());
     }
 }
