@@ -8,6 +8,8 @@ import com.connio.sdk.resource.user.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInviteRequest extends ApiRequest<String> {
 
@@ -69,5 +71,22 @@ public class UserInviteRequest extends ApiRequest<String> {
     @Override
     protected String parseEntity(Response response) {
         return response.readEntity(String.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserInviteRequest that = (UserInviteRequest) o;
+        return Objects.equals(getEmail(), that.getEmail()) &&
+                Objects.equals(getFullName(), that.getFullName()) &&
+                Objects.equals(getRoles(), that.getRoles()) &&
+                Objects.equals(getTimezone(), that.getTimezone()) &&
+                Objects.equals(getLang(), that.getLang());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail(), getFullName(), getRoles(), getTimezone(), getLang());
     }
 }

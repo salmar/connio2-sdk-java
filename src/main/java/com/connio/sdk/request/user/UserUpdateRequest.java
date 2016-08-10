@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserUpdateRequest extends ResourceUpdateRequest<User> {
 
-    private final String userId;
+    private final User user;
 
     private String password;
 
@@ -27,8 +29,8 @@ public class UserUpdateRequest extends ResourceUpdateRequest<User> {
 
     private ImmutableMap<String, Object> prefs;
 
-    public UserUpdateRequest(String userId) {
-        this.userId = userId;
+    public UserUpdateRequest(User user) {
+        this.user = user;
     }
 
     public String getPassword() {
@@ -96,12 +98,32 @@ public class UserUpdateRequest extends ResourceUpdateRequest<User> {
 
     @Override
     protected Request request() {
-        final String path = "users/" + userId;
+        final String path = "users/" + user.getId();
         return Request.put(path, this);
     }
 
     @Override
     protected User parseEntity(Response response) {
         return response.readEntity(User.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserUpdateRequest that = (UserUpdateRequest) o;
+        return Objects.equals(user, that.user) &&
+                Objects.equals(getPassword(), that.getPassword()) &&
+                Objects.equals(getRoles(), that.getRoles()) &&
+                Objects.equals(getFullName(), that.getFullName()) &&
+                Objects.equals(getAvatarUri(), that.getAvatarUri()) &&
+                Objects.equals(getTimezone(), that.getTimezone()) &&
+                Objects.equals(getLang(), that.getLang()) &&
+                Objects.equals(getPrefs(), that.getPrefs());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user, getPassword(), getRoles(), getFullName(), getAvatarUri(), getTimezone(), getLang(), getPrefs());
     }
 }

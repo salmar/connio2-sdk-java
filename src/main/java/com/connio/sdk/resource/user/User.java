@@ -169,7 +169,7 @@ public class User extends Resource<UserUpdateRequest, UserDeleteRequest> {
 
     @Override
     public UserUpdateRequest update() {
-        return new UserUpdateRequest(id);
+        return new UserUpdateRequest(this);
     }
 
     @Override

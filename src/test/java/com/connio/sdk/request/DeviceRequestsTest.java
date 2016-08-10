@@ -3,23 +3,15 @@ package com.connio.sdk.request;
 import com.connio.sdk.Connio;
 import com.connio.sdk.ConnioApiClient;
 import com.connio.sdk.ConnioApiClientImpl;
-import com.connio.sdk.auth.ApiKeyContext;
-import com.connio.sdk.auth.ApiKeyScope;
 import com.connio.sdk.http.JerseyClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
-import com.connio.sdk.request.apiclient.ApiClientAddRequest;
-import com.connio.sdk.request.apiclient.ApiClientDeleteRequest;
-import com.connio.sdk.request.apiclient.ApiClientUpdateRequest;
 import com.connio.sdk.request.device.DeviceAddRequest;
 import com.connio.sdk.request.device.DeviceDeleteRequest;
 import com.connio.sdk.request.device.DeviceUpdateRequest;
-import com.connio.sdk.resource.apiclient.ApiClient;
 import com.connio.sdk.resource.device.Device;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import com.sun.deploy.resources.Deployment_it;
 import mockit.Expectations;
 import mockit.Mocked;
 import org.joda.time.DateTime;
@@ -139,6 +131,7 @@ public class DeviceRequestsTest {
             httpClient.request(request); times = 2;
             httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
         }};
+
 
         final DeviceDeleteRequest request = device.delete();
 

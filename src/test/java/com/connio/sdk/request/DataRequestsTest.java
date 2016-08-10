@@ -6,8 +6,6 @@ import com.connio.sdk.ConnioApiClientImpl;
 import com.connio.sdk.http.JerseyClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
-import com.connio.sdk.request.alert.AlertDeleteRequest;
-import com.connio.sdk.request.alert.AlertUpdateRequest;
 import com.connio.sdk.request.data.*;
 import com.connio.sdk.resource.data.DataFeed;
 import com.connio.sdk.resource.data.DataPoint;
@@ -27,7 +25,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class DataRequestsTest {
