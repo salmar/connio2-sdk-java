@@ -9,6 +9,8 @@ import com.connio.sdk.resource.method.MethodImpl;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MethodUpdateRequest extends ResourceUpdateRequest<Method> {
 
@@ -94,6 +96,25 @@ public class MethodUpdateRequest extends ResourceUpdateRequest<Method> {
     @JsonIgnore
     protected Method parseEntity(Response response) {
         return response.readEntity(Method.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MethodUpdateRequest that = (MethodUpdateRequest) o;
+        return Objects.equals(deviceProfileId, that.deviceProfileId) &&
+                Objects.equals(methodId, that.methodId) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getMethodImpl(), that.getMethodImpl()) &&
+                Objects.equals(getInputPropTTL(), that.getInputPropTTL()) &&
+                Objects.equals(getInputId(), that.getInputId()) &&
+                Objects.equals(getOutputId(), that.getOutputId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deviceProfileId, methodId, getName(), getMethodImpl(), getInputPropTTL(), getInputId(), getOutputId());
     }
 }
 

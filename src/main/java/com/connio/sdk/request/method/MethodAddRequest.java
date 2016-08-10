@@ -9,6 +9,8 @@ import com.connio.sdk.resource.method.MethodImpl;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MethodAddRequest extends ResourceAddRequest<Method> {
 
@@ -107,5 +109,25 @@ public class MethodAddRequest extends ResourceAddRequest<Method> {
     @JsonIgnore
     protected Method parseEntity(Response response) {
         return response.readEntity(Method.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MethodAddRequest that = (MethodAddRequest) o;
+        return Objects.equals(getDeviceProfileId(), that.getDeviceProfileId()) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getAccess(), that.getAccess()) &&
+                Objects.equals(getMethodImpl(), that.getMethodImpl()) &&
+                Objects.equals(getInputPropTTL(), that.getInputPropTTL()) &&
+                Objects.equals(getInputId(), that.getInputId()) &&
+                Objects.equals(getOutputId(), that.getOutputId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDeviceProfileId(), getName(), getAccess(), getMethodImpl(), getInputPropTTL(),
+                getInputId(), getOutputId());
     }
 }
