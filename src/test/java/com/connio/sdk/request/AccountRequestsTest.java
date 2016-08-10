@@ -1,9 +1,7 @@
 package com.connio.sdk.request;
 
 import com.connio.sdk.Connio;
-import com.connio.sdk.ConnioApiClient;
 import com.connio.sdk.ConnioApiClientImpl;
-import com.connio.sdk.http.JerseyClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.request.account.AccountAddRequest;
@@ -22,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 public class AccountRequestsTest {
 
     @Mocked
-    private JerseyClient httpClient;
+    private ConnioApiClientImpl connioApiClient;
 
     @Mocked
     private Response response;
@@ -46,8 +44,8 @@ public class AccountRequestsTest {
 
             final Request request = Request.post("accounts", addRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final AccountAddRequest request = Account.create("account", Account.Type.Full)
@@ -59,9 +57,8 @@ public class AccountRequestsTest {
             request.execute();
             request.executeAsync();
 
-            final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
-            request.execute(apiClient);
-            request.executeAsync(apiClient);
+            request.execute(connioApiClient);
+            request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -79,8 +76,8 @@ public class AccountRequestsTest {
             final String path = "accounts/" + account.getId();
             final Request request = Request.put(path, updateRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final AccountUpdateRequest request = account.update()
@@ -95,9 +92,8 @@ public class AccountRequestsTest {
         request.execute();
         request.executeAsync();
 
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -106,8 +102,8 @@ public class AccountRequestsTest {
             final String path = "accounts/" + account.getId();
             final Request request = Request.delete(path);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final AccountDeleteRequest request = account.delete();
@@ -115,8 +111,7 @@ public class AccountRequestsTest {
         request.execute();
         request.executeAsync();
 
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 }

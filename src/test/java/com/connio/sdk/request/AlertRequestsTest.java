@@ -3,7 +3,6 @@ package com.connio.sdk.request;
 import com.connio.sdk.Connio;
 import com.connio.sdk.ConnioApiClient;
 import com.connio.sdk.ConnioApiClientImpl;
-import com.connio.sdk.http.JerseyClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.request.alert.AlertAddRequest;
@@ -25,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
 public class AlertRequestsTest {
 
     @Mocked
-    private JerseyClient httpClient;
+    private ConnioApiClientImpl connioApiClient;
 
     @Mocked
     private Response response;
@@ -70,8 +69,8 @@ public class AlertRequestsTest {
             final String path = "deviceprofiles/" + dp.getId() + "/alerts";
             final Request request = Request.post(path, addRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 4;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 4;
+            connioApiClient.request(request); times = 4;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 4;
         }};
 
         final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
@@ -118,11 +117,9 @@ public class AlertRequestsTest {
             final String path = "devices/" + dev.getId() + "/alerts";
             final Request request = Request.post(path, addRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 4;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 4;
+            connioApiClient.request(request); times = 4;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 4;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final AlertAddRequest request = Alert.create(dev, alertDevice.getName(), alertDevice.getTriggerPropId(), alertDevice.getMetric(),
                 alertDevice.getChecks(), alertDevice.getNotifications())
@@ -134,8 +131,8 @@ public class AlertRequestsTest {
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
 
         final AlertAddRequest request2 = dev.addAlert(alertDevice.getName(), alertDevice.getTriggerPropId(), alertDevice.getMetric(),
                 alertDeviceProfile.getChecks(), alertDevice.getNotifications())
@@ -147,8 +144,8 @@ public class AlertRequestsTest {
         request2.execute();
         request2.executeAsync();
 
-        request2.execute(apiClient);
-        request2.executeAsync(apiClient);
+        request2.execute(connioApiClient);
+        request2.executeAsync(connioApiClient);
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -172,11 +169,9 @@ public class AlertRequestsTest {
             final String path = "deviceprofiles/" + dp.getId() + "/alerts/" + alertDeviceProfile.getId();
             final Request request = Request.put(path, updateRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final AlertUpdateRequest request = alertDeviceProfile.update()
                 .setChecks(alertDeviceProfile.getChecks())
@@ -191,8 +186,8 @@ public class AlertRequestsTest {
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
 
@@ -212,11 +207,9 @@ public class AlertRequestsTest {
             final String path = "devices/" + dev.getId() + "/alerts/" + alertDevice.getId();
             final Request request = Request.put(path, updateRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final AlertUpdateRequest request = alertDevice.update()
                 .setChecks(alertDevice.getChecks())
@@ -231,8 +224,8 @@ public class AlertRequestsTest {
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -241,18 +234,17 @@ public class AlertRequestsTest {
             final String path = "deviceprofiles/" + dp.getId() + "/alerts/" + alertDeviceProfile.getId();
             final Request request = Request.delete(path);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
         final AlertDeleteRequest request = alertDeviceProfile.delete();
 
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -261,18 +253,17 @@ public class AlertRequestsTest {
             final String path = "devices/" + dev.getId() + "/alerts/" + alertDevice.getId();
             final Request request = Request.delete(path);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
         final AlertDeleteRequest request = alertDevice.delete();
 
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test(expected=IllegalArgumentException.class)

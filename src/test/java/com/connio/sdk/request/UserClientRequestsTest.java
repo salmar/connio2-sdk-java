@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
 public class UserClientRequestsTest {
 
     @Mocked
-    private JerseyClient httpClient;
+    private ConnioApiClientImpl connioApiClient;
 
     @Mocked
     private Response response;
@@ -46,8 +46,8 @@ public class UserClientRequestsTest {
 
             final Request request = Request.post("users/invite", addRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final UserInviteRequest request = User.invite(user.getEmail(), user.getFullName())
@@ -58,9 +58,8 @@ public class UserClientRequestsTest {
             request.execute();
             request.executeAsync();
 
-            final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
-            request.execute(apiClient);
-            request.executeAsync(apiClient);
+            request.execute(connioApiClient);
+            request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -81,8 +80,8 @@ public class UserClientRequestsTest {
             final String path = "users/" + user.getId();
             final Request request = Request.put(path, updateRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final UserUpdateRequest request = user.update()
@@ -100,9 +99,8 @@ public class UserClientRequestsTest {
         request.execute();
         request.executeAsync();
 
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -111,8 +109,8 @@ public class UserClientRequestsTest {
             final String path = "users/" + user.getId();
             final Request request = Request.delete(path);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final UserDeleteRequest request = user.delete();
@@ -120,8 +118,7 @@ public class UserClientRequestsTest {
         request.execute();
         request.executeAsync();
 
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 }

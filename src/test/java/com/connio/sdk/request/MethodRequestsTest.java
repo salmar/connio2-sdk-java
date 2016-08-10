@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
 public class MethodRequestsTest {
 
     @Mocked
-    private JerseyClient httpClient;
+    private ConnioApiClientImpl connioApiClient;
 
     @Mocked
     private Response response;
@@ -55,11 +55,9 @@ public class MethodRequestsTest {
             final String path = "deviceprofiles/" + dp.getId() + "/methods";
             final Request request = Request.post(path, addRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 4;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 4;
+            connioApiClient.request(request); times = 4;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 4;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final MethodAddRequest request = Method.create(dp, method.getName(), method.getAccess(), method.getMethodImpl())
                 .setInputId(method.getInputId().orElse(""))
@@ -69,8 +67,8 @@ public class MethodRequestsTest {
             request.execute();
             request.executeAsync();
 
-            request.execute(apiClient);
-            request.executeAsync(apiClient);
+            request.execute(connioApiClient);
+            request.executeAsync(connioApiClient);
 
         final MethodAddRequest request2 = dp.addMethod(method.getName(), method.getAccess(), method.getMethodImpl())
                 .setInputId(method.getInputId().orElse(""))
@@ -80,8 +78,8 @@ public class MethodRequestsTest {
         request2.execute();
         request2.executeAsync();
 
-        request2.execute(apiClient);
-        request2.executeAsync(apiClient);
+        request2.execute(connioApiClient);
+        request2.executeAsync(connioApiClient);
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -102,11 +100,9 @@ public class MethodRequestsTest {
             final String path = "deviceprofiles/" + dp.getId() + "/methods/" + method.getId();
             final Request request = Request.put(path, updateRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final MethodUpdateRequest request = method.update()
                 .setInputId(method.getInputId().orElse(""))
@@ -118,8 +114,8 @@ public class MethodRequestsTest {
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -128,18 +124,17 @@ public class MethodRequestsTest {
             final String path = "deviceprofiles/" + dp.getId() + "/methods/" + method.getId();
             final Request request = Request.delete(path);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
         final MethodDeleteRequest request = method.delete();
 
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test(expected=IllegalArgumentException.class)

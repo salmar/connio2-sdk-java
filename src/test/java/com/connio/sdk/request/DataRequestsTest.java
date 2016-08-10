@@ -30,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
 public class DataRequestsTest {
 
     @Mocked
-    private JerseyClient httpClient;
+    private ConnioApiClientImpl connioApiClient;
 
     @Mocked
     private Response response;
@@ -62,11 +62,9 @@ public class DataRequestsTest {
                     method.getName(), "properties", property.getName(), "stats", "true");
             final Request request = Request.get(path, parameters);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final DeviceStateFetchRequest request = device.state()
                 .setAlerts(true)
@@ -78,8 +76,8 @@ public class DataRequestsTest {
             request.execute();
             request.executeAsync();
 
-            request.execute(apiClient);
-            request.executeAsync(apiClient);
+            request.execute(connioApiClient);
+            request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -90,11 +88,9 @@ public class DataRequestsTest {
                     method.getName(), "properties", property.getName(), "stats", "true");
             final Request request = Request.get(path, parameters);
             response.isSuccess(); result = false;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.<Response>supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final DeviceStateFetchRequest request = device.state()
                 .setAlerts(true)
@@ -106,8 +102,8 @@ public class DataRequestsTest {
         Assert.assertTrue(!request.fetch().isPresent());
         Assert.assertTrue(!request.fetchAsync().get().isPresent());
 
-        Assert.assertTrue(!request.fetch(apiClient).isPresent());
-        Assert.assertTrue(!request.fetchAsync(apiClient).get().isPresent());
+        Assert.assertTrue(!request.fetch(connioApiClient).isPresent());
+        Assert.assertTrue(!request.fetchAsync(connioApiClient).get().isPresent());
     }
 
     @Test
@@ -118,19 +114,17 @@ public class DataRequestsTest {
             final Request request = Request.put(path, parameter);
             response.isSuccess(); result = true;
             response.readEntity(MethodResult.class); result = new MethodResult(1);
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final ExecutePublicMethodRequest request = device.executeMethod(method).setParameter(parameter);
 
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -140,20 +134,18 @@ public class DataRequestsTest {
             final Request request = Request.get(path);
             response.isSuccess(); result = true;
             response.readEntity(MethodResult.class); result = new MethodResult(1);
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
 
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final ReadPublicMethodRequest request = device.readMethod(method);
 
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -164,11 +156,9 @@ public class DataRequestsTest {
             final String path = "data/devices/" + device.getId() + "/properties/" + property.getId();
             final Request request = Request.get(path, parameters);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final ReadDataRequest request = device.readData(property)
                 .setBookmark("bookmark")
@@ -180,8 +170,8 @@ public class DataRequestsTest {
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -193,19 +183,17 @@ public class DataRequestsTest {
             final String path = "data/devices/" + device.getId() + "/properties";
             final Request request = Request.post(path, dataFeed);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final WriteDataFeedRequest request = device.writeData(dataFeed);
 
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -217,18 +205,16 @@ public class DataRequestsTest {
             final String path = "data/devices/" + device.getId() + "/properties/" + property.getId();
             final Request request = Request.post(path, dataFeed);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
-
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
         final WriteDataFeedRequest request = device.writeData(property, dataFeed);
 
         request.execute();
         request.executeAsync();
 
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 }

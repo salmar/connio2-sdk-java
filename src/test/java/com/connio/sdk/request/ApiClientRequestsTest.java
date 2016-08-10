@@ -1,20 +1,14 @@
 package com.connio.sdk.request;
 
 import com.connio.sdk.Connio;
-import com.connio.sdk.ConnioApiClient;
 import com.connio.sdk.ConnioApiClientImpl;
 import com.connio.sdk.auth.ApiKeyContext;
 import com.connio.sdk.auth.ApiKeyScope;
-import com.connio.sdk.http.JerseyClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
-import com.connio.sdk.request.account.AccountAddRequest;
-import com.connio.sdk.request.account.AccountDeleteRequest;
-import com.connio.sdk.request.account.AccountUpdateRequest;
 import com.connio.sdk.request.apiclient.ApiClientAddRequest;
 import com.connio.sdk.request.apiclient.ApiClientDeleteRequest;
 import com.connio.sdk.request.apiclient.ApiClientUpdateRequest;
-import com.connio.sdk.resource.account.Account;
 import com.connio.sdk.resource.apiclient.ApiClient;
 import com.google.common.collect.ImmutableSet;
 import mockit.Expectations;
@@ -28,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 public class ApiClientRequestsTest {
 
     @Mocked
-    private JerseyClient httpClient;
+    private ConnioApiClientImpl connioApiClient;
 
     @Mocked
     private Response response;
@@ -55,8 +49,8 @@ public class ApiClientRequestsTest {
 
             final Request request = Request.post("apiclients", addRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final ApiClientAddRequest request = ApiClient.create(context, scope)
@@ -67,9 +61,8 @@ public class ApiClientRequestsTest {
             request.execute();
             request.executeAsync();
 
-            final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
-            request.execute(apiClient);
-            request.executeAsync(apiClient);
+            request.execute(connioApiClient);
+            request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -85,8 +78,8 @@ public class ApiClientRequestsTest {
             final String path = "apiclients/" + apiClient.getId();
             final Request request = Request.put(path, updateRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final ApiClientUpdateRequest request = apiClient.update()
@@ -99,9 +92,8 @@ public class ApiClientRequestsTest {
         request.execute();
         request.executeAsync();
 
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 
     @Test
@@ -110,8 +102,8 @@ public class ApiClientRequestsTest {
             final String path = "apiclients/" + apiClient.getId();
             final Request request = Request.delete(path);
             response.isSuccess(); result = true;
-            httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            connioApiClient.request(request); times = 2;
+            connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final ApiClientDeleteRequest request = apiClient.delete();
@@ -119,8 +111,7 @@ public class ApiClientRequestsTest {
         request.execute();
         request.executeAsync();
 
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
-        request.execute(apiClient);
-        request.executeAsync(apiClient);
+        request.execute(connioApiClient);
+        request.executeAsync(connioApiClient);
     }
 }

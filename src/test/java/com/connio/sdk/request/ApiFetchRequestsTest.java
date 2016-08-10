@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class ApiFetchRequestsTest {
 
     @Mocked
-    private JerseyClient httpClient;
+    private ConnioApiClientImpl connioApiClient;
 
     @Mocked
     private Response response;
@@ -43,7 +43,7 @@ public class ApiFetchRequestsTest {
     @Test
     public void whenImplicitAsyncResponseIsNotSuccessFullShouldThrowConnioApiException() throws Throwable {
         new Expectations() {{
-            httpClient.requestAsync(req); result = CompletableFuture.completedFuture(response); times = 1;
+            connioApiClient.requestAsync(req); result = CompletableFuture.completedFuture(response); times = 1;
             response.isSuccess(); result = false;
         }};
 
@@ -56,17 +56,17 @@ public class ApiFetchRequestsTest {
             response.isSuccess(); result = false;
         }};
 
-        assertTrue(!new ApiFetchRequestTest().fetch(new ConnioApiClientImpl("key", "secret")).isPresent());
+        assertTrue(!new ApiFetchRequestTest().fetch(connioApiClient).isPresent());
     }
 
     @Test
     public void whenExplicitAsyncResponseIsNotSuccessFullShouldThrowConnioApiException() throws Throwable {
         new Expectations() {{
-            httpClient.requestAsync(req); result = CompletableFuture.completedFuture(response); times = 1;
+            connioApiClient.requestAsync(req); result = CompletableFuture.completedFuture(response); times = 1;
             response.isSuccess(); result = false;
         }};
 
-        assertTrue(!new ApiFetchRequestTest().fetchAsync(new ConnioApiClientImpl("key", "secret")).get().isPresent());
+        assertTrue(!new ApiFetchRequestTest().fetchAsync(connioApiClient).get().isPresent());
     }
 
     @Test
@@ -84,14 +84,13 @@ public class ApiFetchRequestsTest {
             response.isSuccess(); result = true;
         }};
 
-        final ConnioApiClient connioApiClient = new ConnioApiClientImpl("key", "secret");
         assertEquals(ApiFetchRequestTest.ENTITY_VALUE, new ApiFetchRequestTest().fetch(connioApiClient).get());
     }
 
     @Test
     public void whenImplicitAsyncRequestSuccessShouldReturnParsedEntity() throws Exception {
         new Expectations() {{
-            httpClient.requestAsync(req); result = CompletableFuture.completedFuture(response); times = 1;
+            connioApiClient.requestAsync(req); result = CompletableFuture.completedFuture(response); times = 1;
             response.isSuccess(); result = true;
         }};
 
@@ -101,11 +100,10 @@ public class ApiFetchRequestsTest {
     @Test
     public void whenExplicitAsyncRequestSuccessShouldReturnParsedEntity() throws Exception {
         new Expectations() {{
-            httpClient.requestAsync(req); result = CompletableFuture.completedFuture(response); times = 1;
+            connioApiClient.requestAsync(req); result = CompletableFuture.completedFuture(response); times = 1;
             response.isSuccess(); result = true;
         }};
 
-        final ConnioApiClient connioApiClient = new ConnioApiClientImpl("key", "secret");
         assertEquals(ApiFetchRequestTest.ENTITY_VALUE, new ApiFetchRequestTest().fetchAsync(connioApiClient).get().get());
     }
 
