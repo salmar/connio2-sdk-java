@@ -47,7 +47,7 @@ public class AccountRequestsTest {
             final Request request = Request.post("accounts", addRequest);
             response.isSuccess(); result = true;
             httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            httpClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final AccountAddRequest request = Account.create("account", Account.Type.Full)
@@ -80,7 +80,7 @@ public class AccountRequestsTest {
             final Request request = Request.put(path, updateRequest);
             response.isSuccess(); result = true;
             httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            httpClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final AccountUpdateRequest request = account.update()
@@ -107,7 +107,7 @@ public class AccountRequestsTest {
             final Request request = Request.delete(path);
             response.isSuccess(); result = true;
             httpClient.request(request); times = 2;
-            httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
+            httpClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
         final AccountDeleteRequest request = account.delete();
