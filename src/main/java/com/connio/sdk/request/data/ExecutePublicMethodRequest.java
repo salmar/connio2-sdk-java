@@ -7,23 +7,32 @@ import com.connio.sdk.resource.data.MethodResult;
 import com.connio.sdk.resource.device.Device;
 import com.connio.sdk.resource.method.Method;
 
-public class InvokePublicMethodRequest extends ApiRequest<Object> {
+public class ExecutePublicMethodRequest extends ApiRequest<Object> {
 
     private final String deviceId;
 
     private final String methodId;
 
-    private final Object parameter;
+    private Object parameter;
 
-    public InvokePublicMethodRequest(Device device, Method method, Object parameter) {
+    public ExecutePublicMethodRequest(Device device, Method method) {
         this.deviceId = device.getId();
         this.methodId = method.getId();
+    }
+
+    public Object getParameter() {
+        return parameter;
+    }
+
+    public ExecutePublicMethodRequest setParameter(Object parameter) {
         this.parameter = parameter;
+        return this;
     }
 
     @Override
     protected Request request() {
         final String path = "data/devices/" + deviceId + "/methods/" + methodId;
+
         return Request.put(path, parameter);
     }
 

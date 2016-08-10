@@ -37,7 +37,7 @@ public abstract class ApiFetchRequest<T> extends ApiRequest<Optional<T>> {
 
     @Override
     protected Optional<T> parseEntity(Response response) {
-        return Optional.of(parseResourceEntity(response));
+        return Optional.ofNullable(parseResourceEntity(response));
     }
 
     protected abstract T parseResourceEntity(Response response);

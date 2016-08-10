@@ -17,7 +17,6 @@ import com.google.common.collect.ImmutableSet;
 import mockit.Expectations;
 import mockit.Mocked;
 import org.joda.time.DateTime;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -152,12 +151,9 @@ public class AlertRequestsTest {
         request2.executeAsync(apiClient);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void updateRequestShouldReturnIllegalArgumentExceptionWhenInvalidOwnerId() throws Exception {
-        try {
-            new AlertUpdateRequest("wrong_owner_Id", alertDeviceProfile.getId());
-            Assert.fail("Update request accepts invalid owner ids");
-        } catch(IllegalArgumentException e) {}
+        new AlertUpdateRequest("wrong_owner_Id", alertDeviceProfile.getId());
     }
 
     @Test
@@ -279,11 +275,8 @@ public class AlertRequestsTest {
         request.executeAsync(apiClient);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void deleteRequestShouldReturnIllegalArgumentExceptionWhenInvalidOwnerId() {
-        try {
-            new AlertDeleteRequest("wrong_owner_Id", alertDeviceProfile.getId());
-            Assert.fail("Update request accepts invalid owner ids");
-        } catch(IllegalArgumentException e) {}
+        new AlertDeleteRequest("wrong_owner_Id", alertDeviceProfile.getId());
     }
 }

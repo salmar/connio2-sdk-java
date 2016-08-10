@@ -43,6 +43,7 @@ public class WriteDataFeedRequest extends ApiRequest<Void> {
     protected Request request() {
         final String basePath = "data/devices/" + deviceId;
         final String path = property != null ? basePath + "/properties/" + property.getId() : basePath + "/properties";
+
         return Request.post(path, dataFeed);
     }
 

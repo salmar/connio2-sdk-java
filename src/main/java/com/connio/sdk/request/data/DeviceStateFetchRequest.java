@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class DeviceStateFetchRequest extends ApiFetchRequest<DeviceState> {
 
@@ -85,7 +86,9 @@ public class DeviceStateFetchRequest extends ApiFetchRequest<DeviceState> {
         if (stats) parameters.put("stats", "true");
         if (alerts) parameters.put("alerts", "true");
         if (properties != null && properties.size() > 0) parameters.put("properties", StringUtils.join(properties, ","));
-        if (methods != null && methods.size() > 0) parameters.put("methods", StringUtils.join(properties, ","));
+        if (methods != null && methods.size() > 0) parameters.put("methods", StringUtils.join(methods, ","));
+
+        System.out.println(Request.get("data/devices/" + deviceId, parameters));
 
         return Request.get("data/devices/" + deviceId, parameters);
     }
@@ -93,5 +96,23 @@ public class DeviceStateFetchRequest extends ApiFetchRequest<DeviceState> {
     @Override
     protected DeviceState parseResourceEntity(Response response) {
         return response.readEntity(DeviceState.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeviceStateFetchRequest that = (DeviceStateFetchRequest) o;
+        return Objects.equals(isMeta(), that.isMeta()) &&
+                Objects.equals(isStats(), that.isStats()) &&
+                Objects.equals(isAlerts(), that.isAlerts()) &&
+                Objects.equals(deviceId, that.deviceId) &&
+                Objects.equals(getProperties(), that.getProperties()) &&
+                Objects.equals(getMethods(), that.getMethods());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deviceId, isMeta(), isStats(), isAlerts(), getProperties(), getMethods());
     }
 }

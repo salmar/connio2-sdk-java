@@ -159,8 +159,8 @@ public class Property extends Resource<PropertyUpdateRequest, PropertyDeleteRequ
         return measurement;
     }
 
-    public Boundaries getBoundaries() {
-        return boundaries;
+    public Optional<Boundaries> getBoundaries() {
+        return Optional.ofNullable(boundaries);
     }
 
     public Retention getRetention() {

@@ -7,13 +7,13 @@ import com.connio.sdk.resource.data.MethodResult;
 import com.connio.sdk.resource.device.Device;
 import com.connio.sdk.resource.method.Method;
 
-public class ReadMethodRequest extends ApiRequest<Object> {
+public class ReadPublicMethodRequest extends ApiRequest<Object> {
 
     private final String deviceId;
 
     private final String methodId;
 
-    public ReadMethodRequest(Device device, Method method) {
+    public ReadPublicMethodRequest(Device device, Method method) {
         this.deviceId = device.getId();
         this.methodId = method.getId();
     }

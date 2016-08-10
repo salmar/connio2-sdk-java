@@ -2,10 +2,7 @@ package com.connio.sdk.resource.device;
 
 import com.connio.sdk.request.alert.AlertAddRequest;
 import com.connio.sdk.request.alert.AlertRemoveIncidentRequest;
-import com.connio.sdk.request.data.DeviceStateFetchRequest;
-import com.connio.sdk.request.data.ReadDataRequest;
-import com.connio.sdk.request.data.ReadMethodRequest;
-import com.connio.sdk.request.data.WriteDataFeedRequest;
+import com.connio.sdk.request.data.*;
 import com.connio.sdk.request.device.DeviceDeleteRequest;
 import com.connio.sdk.request.device.DeviceFetchRequest;
 import com.connio.sdk.request.device.DeviceUpdateRequest;
@@ -26,7 +23,6 @@ import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -218,8 +214,12 @@ public class Device extends Resource {
         return new WriteDataFeedRequest(this, dataFeed);
     }
 
-    public ReadMethodRequest readMethod(Method method) {
-        return new ReadMethodRequest(this, method);
+    public ReadPublicMethodRequest readMethod(Method method) {
+        return new ReadPublicMethodRequest(this, method);
+    }
+
+    public ExecutePublicMethodRequest executeMethod(Method method) {
+        return new ExecutePublicMethodRequest(this, method);
     }
 
     public DeviceStateFetchRequest state() {

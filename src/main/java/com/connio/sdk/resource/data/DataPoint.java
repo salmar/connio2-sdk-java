@@ -3,6 +3,7 @@ package com.connio.sdk.resource.data;
 import com.connio.sdk.resource.property.Property;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
+import com.google.common.collect.ImmutableMap;
 import org.joda.time.DateTime;
 
 import java.util.HashMap;
@@ -18,10 +19,10 @@ public class DataPoint {
 
     private final Long tt;
 
-    private final Map<String, Object> ann;
+    private final ImmutableMap<String, Object> ann;
 
 
-    private DataPoint(Object v, DateTime t, Long tt, Map<String, Object> ann) {
+    private DataPoint(Object v, DateTime t, Long tt, ImmutableMap<String, Object> ann) {
         this.v = v;
         this.t = t;
         this.tt = tt;
@@ -48,14 +49,16 @@ public class DataPoint {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        DataPoint that = (DataPoint) o;
-        return Objects.equals(t, that.t) && Objects.equals(v, that.v) && Objects.equals(ann, that.ann);
+        DataPoint dataPoint = (DataPoint) o;
+        return Objects.equals(getV(), dataPoint.getV()) &&
+                Objects.equals(getT(), dataPoint.getT()) &&
+                Objects.equals(getTt(), dataPoint.getTt()) &&
+                Objects.equals(getAnn(), dataPoint.getAnn());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(t, v, ann);
+        return Objects.hash(getV(), getT(), getTt(), getAnn());
     }
 
     @Override
@@ -134,7 +137,7 @@ public class DataPoint {
         }
 
         public DataPoint build() {
-            return new DataPoint(v, t, tt, ann.isEmpty() ? null : ann);
+            return new DataPoint(v, t, tt, ann.isEmpty() ? null : ImmutableMap.copyOf(ann));
         }
     }
 }
