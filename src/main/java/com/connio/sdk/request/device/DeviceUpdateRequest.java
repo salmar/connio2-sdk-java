@@ -10,14 +10,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeviceUpdateRequest extends ResourceUpdateRequest<Device> {
 
     private final Device device;
 
     private String name;
-
-    private String app;
 
     private ImmutableMap<Device.CustomId, String> customIds;
 
@@ -47,15 +47,6 @@ public class DeviceUpdateRequest extends ResourceUpdateRequest<Device> {
 
     public DeviceUpdateRequest setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public String getApp() {
-        return app;
-    }
-
-    public DeviceUpdateRequest setApp(String app) {
-        this.app = app;
         return this;
     }
 
@@ -150,5 +141,29 @@ public class DeviceUpdateRequest extends ResourceUpdateRequest<Device> {
     @JsonIgnore
     protected Device parseEntity(Response response) {
         return response.readEntity(Device.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeviceUpdateRequest that = (DeviceUpdateRequest) o;
+        return Objects.equals(device, that.device) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getCustomIds(), that.getCustomIds()) &&
+                Objects.equals(getNotes(), that.getNotes()) &&
+                Objects.equals(getStatus(), that.getStatus()) &&
+                Objects.equals(getTags(), that.getTags()) &&
+                Objects.equals(getTimezone(), that.getTimezone()) &&
+                Objects.equals(getAnnotateWithLoc(), that.getAnnotateWithLoc()) &&
+                Objects.equals(getAnnotateWithMeta(), that.getAnnotateWithMeta()) &&
+                Objects.equals(getPeriod(), that.getPeriod()) &&
+                Objects.equals(getLocation(), that.getLocation());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(device, getName(), getCustomIds(), getNotes(), getStatus(), getTags(),
+                getTimezone(), getAnnotateWithLoc(), getAnnotateWithMeta(), getPeriod(), getLocation());
     }
 }

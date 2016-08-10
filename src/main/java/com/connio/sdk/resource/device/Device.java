@@ -3,6 +3,7 @@ package com.connio.sdk.resource.device;
 import com.connio.sdk.request.alert.AlertAddRequest;
 import com.connio.sdk.request.alert.AlertRemoveIncidentRequest;
 import com.connio.sdk.request.data.*;
+import com.connio.sdk.request.device.DeviceAddRequest;
 import com.connio.sdk.request.device.DeviceDeleteRequest;
 import com.connio.sdk.request.device.DeviceFetchRequest;
 import com.connio.sdk.request.device.DeviceUpdateRequest;
@@ -13,6 +14,7 @@ import com.connio.sdk.resource.alert.Alert;
 import com.connio.sdk.resource.alert.AlertCheck;
 import com.connio.sdk.resource.alert.Notification;
 import com.connio.sdk.resource.data.DataFeed;
+import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.connio.sdk.resource.method.Method;
 import com.connio.sdk.resource.property.Property;
 import com.fasterxml.jackson.annotation.*;
@@ -28,7 +30,7 @@ import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Device extends Resource {
+public class Device extends Resource<DeviceUpdateRequest, DeviceDeleteRequest> {
 
     /**
      * Device Status values
@@ -190,10 +192,16 @@ public class Device extends Resource {
         return new DeviceFetchRequest(deviceId);
     }
 
+    public static DeviceAddRequest create(DeviceProfile deviceProfile) {
+        return new DeviceAddRequest(deviceProfile);
+    }
+
+    @Override
     public DeviceUpdateRequest update() {
         return new DeviceUpdateRequest(this);
     }
 
+    @Override
     public DeviceDeleteRequest delete() {
         return new DeviceDeleteRequest(id);
     }

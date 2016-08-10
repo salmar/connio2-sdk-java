@@ -88,8 +88,6 @@ public class DeviceStateFetchRequest extends ApiFetchRequest<DeviceState> {
         if (properties != null && properties.size() > 0) parameters.put("properties", StringUtils.join(properties, ","));
         if (methods != null && methods.size() > 0) parameters.put("methods", StringUtils.join(methods, ","));
 
-        System.out.println(Request.get("data/devices/" + deviceId, parameters));
-
         return Request.get("data/devices/" + deviceId, parameters);
     }
 
