@@ -1,16 +1,21 @@
 package com.connio.sdk.resource.property;
 
+import com.connio.sdk.request.property.PropertyAddRequest;
+import com.connio.sdk.request.property.PropertyDeleteRequest;
+import com.connio.sdk.request.property.PropertyUpdateRequest;
 import com.connio.sdk.resource.Resource;
+import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.fasterxml.jackson.annotation.*;
 import com.google.common.base.MoreObjects;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Property extends Resource {
+public class Property extends Resource<PropertyUpdateRequest, PropertyDeleteRequest> {
 
     public enum Type {
         Enum,
@@ -85,6 +90,10 @@ public class Property extends Resource {
 
     private final Retention retention;
 
+    private final DateTime dateCreated;
+
+    private final DateTime dateModified;
+
 
     public Property(@JsonProperty("id") final String id,
                     @JsonProperty("name") final String name,
@@ -113,6 +122,8 @@ public class Property extends Resource {
         this.measurement = measurement;
         this.boundaries = boundaries;
         this.retention = retention;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
     }
 
 
@@ -156,6 +167,28 @@ public class Property extends Resource {
         return retention;
     }
 
+    public DateTime getDateCreated() {
+        return dateCreated;
+    }
+
+    public Optional<DateTime> getDateModified() {
+        return Optional.ofNullable(dateModified);
+    }
+
+    public static PropertyAddRequest create(DeviceProfile deviceProfile, String name, Type type) {
+        return new PropertyAddRequest(deviceProfile, name, type);
+    }
+
+    @Override
+    public PropertyUpdateRequest update() {
+        return new PropertyUpdateRequest(ownerId, id);
+    }
+
+    @Override
+    public PropertyDeleteRequest delete() {
+        return new PropertyDeleteRequest(ownerId, id);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null || getClass() != obj.getClass()) {
@@ -165,7 +198,7 @@ public class Property extends Resource {
             return true;
         }
         Property other = (Property) obj;
-        return  Objects.equals(this.getId(), other.getId());
+        return  Objects.equals(this.id, other.id);
     }
 
     @Override

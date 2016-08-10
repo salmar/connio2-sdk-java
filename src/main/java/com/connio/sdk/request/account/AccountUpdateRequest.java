@@ -7,10 +7,12 @@ import com.connio.sdk.resource.account.Account;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountUpdateRequest extends ResourceUpdateRequest<Account> {
 
-    private final String accountId;
+    private final Account account;
 
     private String name;
 
@@ -26,8 +28,8 @@ public class AccountUpdateRequest extends ResourceUpdateRequest<Account> {
 
     private ImmutableSet<String> tags;
 
-    public AccountUpdateRequest(String accountId) {
-        this.accountId = accountId;
+    public AccountUpdateRequest(Account account) {
+        this.account = account;
     }
 
     public String getName() {
@@ -95,13 +97,33 @@ public class AccountUpdateRequest extends ResourceUpdateRequest<Account> {
 
     @Override
     protected Request request() {
-        final String path = "accounts/" + accountId;
+        final String path = "accounts/" + account.getId();
         return Request.put(path, this);
     }
 
     @Override
     protected Account parseEntity(Response response) {
         return response.readEntity(Account.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountUpdateRequest that = (AccountUpdateRequest) o;
+        return Objects.equals(account, that.account) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getStatus(), that.getStatus()) &&
+                Objects.equals(getType(), that.getType()) &&
+                Objects.equals(getOrgName(), that.getOrgName()) &&
+                Objects.equals(getOrgWebsite(), that.getOrgWebsite()) &&
+                Objects.equals(getOrgImageUri(), that.getOrgImageUri()) &&
+                Objects.equals(getTags(), that.getTags());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(account, getName(), getStatus(), getType(), getOrgName(), getOrgWebsite(), getOrgImageUri(), getTags());
     }
 }
 

@@ -48,6 +48,11 @@ public class AlertUpdateRequest extends ResourceUpdateRequest<Alert> {
         this.alertId = alertId;
     }
 
+    public AlertUpdateRequest(String ownerId, String alertId) {
+        this.ownerId = ownerId;
+        this.alertId = alertId;
+    }
+
     public String getOwnerId() {
         return ownerId;
     }

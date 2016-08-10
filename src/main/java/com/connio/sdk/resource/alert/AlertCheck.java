@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.MoreObjects;
+import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.text.WordUtils;
 
-import java.util.List;
 import java.util.Objects;
 
 public class AlertCheck {
@@ -30,13 +30,13 @@ public class AlertCheck {
 
     private final String expression;
 
-    private final List<AlertHandler> handlers;
+    private final ImmutableList<AlertHandler> handlers;
 
 
     @JsonCreator
     public AlertCheck(@JsonProperty("severity") Severity severity,
                       @JsonProperty("expression") String expression,
-                      @JsonProperty("handlers") List<AlertHandler> handlers) {
+                      @JsonProperty("handlers") ImmutableList<AlertHandler> handlers) {
 
         this.severity = severity;
         this.expression = expression;
@@ -51,7 +51,7 @@ public class AlertCheck {
         return expression;
     }
 
-    public List<AlertHandler> getHandlers() {
+    public ImmutableList<AlertHandler> getHandlers() {
         return handlers;
     }
 

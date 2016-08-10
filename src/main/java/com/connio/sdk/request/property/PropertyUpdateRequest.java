@@ -32,6 +32,14 @@ public class PropertyUpdateRequest extends ResourceUpdateRequest<Property> {
     private Retention retention;
 
 
+    public PropertyUpdateRequest(String deviceProfileId, String propertyId) {
+        this.deviceProfileId = deviceProfileId;
+        this.propertyId = propertyId;
+
+        if (deviceProfileId == null || !deviceProfileId.startsWith("_dpf_"))
+            throw new IllegalArgumentException("Invalid device profile id");
+    }
+
     public PropertyUpdateRequest(DeviceProfile deviceProfile, String propertyId) {
         this.deviceProfileId = deviceProfile.getId();
         this.propertyId = propertyId;

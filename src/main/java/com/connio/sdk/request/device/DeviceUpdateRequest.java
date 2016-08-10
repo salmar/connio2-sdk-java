@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableSet;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeviceUpdateRequest extends ResourceUpdateRequest<Device> {
 
-    private final String deviceId;
+    private final Device device;
 
     private String name;
 
@@ -37,8 +37,8 @@ public class DeviceUpdateRequest extends ResourceUpdateRequest<Device> {
 
     private Location location;
 
-    public DeviceUpdateRequest(String deviceId) {
-        this.deviceId = deviceId;
+    public DeviceUpdateRequest(Device device) {
+        this.device = device;
     }
 
     public String getName() {
@@ -143,7 +143,7 @@ public class DeviceUpdateRequest extends ResourceUpdateRequest<Device> {
     @Override
     @JsonIgnore
     protected Request request() {
-        return Request.put("devices", this);
+        return Request.put("devices/" + device.getId(), this);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Request {
 
     private final Object body;
 
-    public Request(RequestMethod method, String path, Map<String, String> queryParams, Object body) {
+    private Request(RequestMethod method, String path, Map<String, String> queryParams, Object body) {
         this.method = method;
         this.path = path;
         this.queryParams = queryParams;

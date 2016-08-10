@@ -3,13 +3,14 @@ package com.connio.sdk.request.method;
 import com.connio.sdk.request.ResourceUpdateRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
+import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.connio.sdk.resource.method.Method;
 import com.connio.sdk.resource.method.MethodImpl;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MethodUpdate extends ResourceUpdateRequest<Method> {
+public class MethodUpdateRequest extends ResourceUpdateRequest<Method> {
 
     private final String deviceProfileId;
 
@@ -25,9 +26,16 @@ public class MethodUpdate extends ResourceUpdateRequest<Method> {
 
     private String outputId;
 
-
-    public MethodUpdate(String deviceProfileId, String methodId) {
+    public MethodUpdateRequest(String deviceProfileId, String methodId) {
         this.deviceProfileId = deviceProfileId;
+        this.methodId = methodId;
+
+        if (deviceProfileId == null || !deviceProfileId.startsWith("_dpf_"))
+            throw new IllegalArgumentException("Invalid device profile");
+    }
+
+    public MethodUpdateRequest(DeviceProfile deviceProfile, String methodId) {
+        this.deviceProfileId = deviceProfile.getId();
         this.methodId = methodId;
     }
 
@@ -35,7 +43,7 @@ public class MethodUpdate extends ResourceUpdateRequest<Method> {
         return name;
     }
 
-    public MethodUpdate setName(String name) {
+    public MethodUpdateRequest setName(String name) {
         this.name = name;
         return this;
     }
@@ -44,7 +52,7 @@ public class MethodUpdate extends ResourceUpdateRequest<Method> {
         return methodImpl;
     }
 
-    public MethodUpdate setMethodImpl(MethodImpl methodImpl) {
+    public MethodUpdateRequest setMethodImpl(MethodImpl methodImpl) {
         this.methodImpl = methodImpl;
         return this;
     }
@@ -53,7 +61,7 @@ public class MethodUpdate extends ResourceUpdateRequest<Method> {
         return inputPropTTL;
     }
 
-    public MethodUpdate setInputPropTTL(Long inputPropTTL) {
+    public MethodUpdateRequest setInputPropTTL(Long inputPropTTL) {
         this.inputPropTTL = inputPropTTL;
         return this;
     }
@@ -62,7 +70,7 @@ public class MethodUpdate extends ResourceUpdateRequest<Method> {
         return inputId;
     }
 
-    public MethodUpdate setInputId(String inputId) {
+    public MethodUpdateRequest setInputId(String inputId) {
         this.inputId = inputId;
         return this;
     }
@@ -71,7 +79,7 @@ public class MethodUpdate extends ResourceUpdateRequest<Method> {
         return outputId;
     }
 
-    public MethodUpdate setOutputId(String outputId) {
+    public MethodUpdateRequest setOutputId(String outputId) {
         this.outputId = outputId;
         return this;
     }

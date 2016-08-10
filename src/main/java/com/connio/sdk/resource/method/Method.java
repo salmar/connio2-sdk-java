@@ -1,16 +1,21 @@
 package com.connio.sdk.resource.method;
 
+import com.connio.sdk.request.method.MethodAddRequest;
+import com.connio.sdk.request.method.MethodDeleteRequest;
+import com.connio.sdk.request.method.MethodUpdateRequest;
 import com.connio.sdk.resource.Resource;
+import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.fasterxml.jackson.annotation.*;
 import com.google.common.base.MoreObjects;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Method extends Resource {
+public class Method extends Resource<MethodUpdateRequest, MethodDeleteRequest> {
 
     public enum Access {
         Private,
@@ -122,24 +127,38 @@ public class Method extends Resource {
         return methodImpl;
     }
 
-    public Long getInputPropTTL() {
-        return inputPropTTL;
+    public Optional<Long> getInputPropTTL() {
+        return Optional.ofNullable(inputPropTTL);
     }
 
-    public String getInputId() {
-        return inputId;
+    public Optional<String> getInputId() {
+        return Optional.ofNullable(inputId);
     }
 
-    public String getOutputId() {
-        return outputId;
+    public Optional<String> getOutputId() {
+        return Optional.ofNullable(outputId);
     }
 
     public DateTime getDateCreated() {
         return dateCreated;
     }
 
-    public DateTime getDateModified() {
-        return dateModified;
+    public Optional<DateTime> getDateModified() {
+        return Optional.ofNullable(dateModified);
+    }
+
+    public static MethodAddRequest create(DeviceProfile deviceProfile, String name, Access access, MethodImpl impl) {
+        return new MethodAddRequest(deviceProfile, name, access, impl);
+    }
+
+    @Override
+    public MethodUpdateRequest update() {
+        return new MethodUpdateRequest(ownerId, id);
+    }
+
+    @Override
+    public MethodDeleteRequest delete() {
+        return new MethodDeleteRequest(ownerId, id);
     }
 
     @Override

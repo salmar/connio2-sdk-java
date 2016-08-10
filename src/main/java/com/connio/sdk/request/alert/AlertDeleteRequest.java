@@ -21,6 +21,14 @@ public class AlertDeleteRequest extends ResourceDeleteRequest {
         this.alertId = alertId;
     }
 
+    public AlertDeleteRequest(String ownerId, String alertId) {
+        this.ownerId = ownerId;
+        this.alertId = alertId;
+
+        if (ownerId == null || (!ownerId.startsWith("_dpf_") && !ownerId.startsWith("_dev_")))
+            throw new IllegalArgumentException("Alert owner id should be a device or device profile");
+    }
+
     @Override
     protected Request request() {
         final String ownerPath = ownerId.startsWith("_dpf_") ? "deviceprofiles" : "devices";

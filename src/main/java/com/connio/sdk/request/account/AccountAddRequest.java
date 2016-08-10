@@ -6,6 +6,8 @@ import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.account.Account;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountAddRequest extends ResourceAddRequest<Account> {
 
@@ -79,5 +81,23 @@ public class AccountAddRequest extends ResourceAddRequest<Account> {
     @Override
     protected Account parseEntity(Response response) {
         return response.readEntity(Account.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountAddRequest that = (AccountAddRequest) o;
+        return Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getType(), that.getType()) &&
+                Objects.equals(getStatus(), that.getStatus()) &&
+                Objects.equals(getOrgName(), that.getOrgName()) &&
+                Objects.equals(getOrgWebsite(), that.getOrgWebsite()) &&
+                Objects.equals(getOrgImageUri(), that.getOrgImageUri());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getType(), getStatus(), getOrgName(), getOrgWebsite(), getOrgImageUri());
     }
 }

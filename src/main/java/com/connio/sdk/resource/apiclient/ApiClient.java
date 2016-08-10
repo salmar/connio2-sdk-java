@@ -1,5 +1,10 @@
 package com.connio.sdk.resource.apiclient;
 
+import com.connio.sdk.auth.ApiKeyContext;
+import com.connio.sdk.auth.ApiKeyScope;
+import com.connio.sdk.request.apiclient.ApiClientAddRequest;
+import com.connio.sdk.request.apiclient.ApiClientDeleteRequest;
+import com.connio.sdk.request.apiclient.ApiClientUpdateRequest;
 import com.connio.sdk.resource.Resource;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,9 +14,10 @@ import com.google.common.collect.ImmutableSet;
 import org.joda.time.DateTime;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiClient extends Resource {
+public class ApiClient extends Resource<ApiClientUpdateRequest, ApiClientDeleteRequest> {
 
     private final String id;
 
@@ -40,7 +46,7 @@ public class ApiClient extends Resource {
         this.name = name;
         this.accountId = accountId;
         this.description = description;
-        this.tags = tags;
+        this.tags = tags != null ? tags : ImmutableSet.<String>of();
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
     }
@@ -57,8 +63,8 @@ public class ApiClient extends Resource {
         return accountId;
     }
 
-    public String getDescription() {
-        return description;
+    public Optional<String> getDescription() {
+        return Optional.ofNullable(description);
     }
 
     public ImmutableSet<String> getTags() {
@@ -69,8 +75,22 @@ public class ApiClient extends Resource {
         return dateCreated;
     }
 
-    public DateTime getDateModified() {
-        return dateModified;
+    public Optional<DateTime> getDateModified() {
+        return Optional.ofNullable(dateModified);
+    }
+
+    public static ApiClientAddRequest create(ApiKeyContext context, ImmutableSet<ApiKeyScope> scopes) {
+        return new ApiClientAddRequest(context, scopes);
+    }
+
+    @Override
+    public ApiClientUpdateRequest update() {
+        return new ApiClientUpdateRequest(id);
+    }
+
+    @Override
+    public ApiClientDeleteRequest delete() {
+        return new ApiClientDeleteRequest(id);
     }
 
     @Override
@@ -100,5 +120,4 @@ public class ApiClient extends Resource {
                 .add("tags", getTags())
                 .toString();
     }
-
 }

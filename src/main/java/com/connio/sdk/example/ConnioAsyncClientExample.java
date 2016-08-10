@@ -33,7 +33,7 @@ public class ConnioAsyncClientExample {
             });
 
             // On device profile and property creation we compose method creation using them
-            final CompletableFuture<Method> method = deviceProfile.thenCombine(property, (dp, p) -> {return new ImmutablePair<>(dp, p);})
+            final CompletableFuture<Method> method = deviceProfile.thenCombine(property, (dp, p) -> new ImmutablePair<>(dp, p))
                     .thenCompose((deviceProfileAndProperty) -> {
                         final DeviceProfile dp = deviceProfileAndProperty.getLeft();
                         final Property prop = deviceProfileAndProperty.getRight();
@@ -45,10 +45,8 @@ public class ConnioAsyncClientExample {
                     });
 
             // On device profile and method creation we will create the device
-            final CompletableFuture<Device> device = deviceProfile.thenCombine(method, (dp, m) -> {return dp;})
-                    .thenCompose((dp) -> {
-                        return dp.addDevice().setStatus(Device.Status.Debug).executeAsync();
-                    });
+            final CompletableFuture<Device> device = deviceProfile.thenCombine(method, (dp, m) -> dp)
+                    .thenCompose((dp) -> dp.addDevice().setStatus(Device.Status.Debug).executeAsync());
 
             // Write three data points
             device.thenCombine(property, (d, p) -> d.writeData(p, new DataFeed(new DataPoint.Builder(16.0).build())).executeAsync());
@@ -56,7 +54,7 @@ public class ConnioAsyncClientExample {
             device.thenCombine(property, (d, p) -> d.writeData(p, new DataFeed(new DataPoint.Builder(18.0).build())).executeAsync());
 
             // Retrieve getter method value
-            CompletableFuture<Object> methodValue = device.thenCombine(method, (d, m) -> { return new ImmutablePair<>(d, m); })
+            CompletableFuture<Object> methodValue = device.thenCombine(method, (d, m) -> new ImmutablePair<>(d, m))
                     .thenCompose((deviceAndMethod) -> {
                         final Device d = deviceAndMethod.getLeft();
                         final Method m = deviceAndMethod.getRight();
@@ -65,7 +63,7 @@ public class ConnioAsyncClientExample {
                     });
 
             // Get device state
-            CompletableFuture<Optional<DeviceState>> deviceState = device.thenCompose(d -> { return d.state().fetchAsync(); });
+            CompletableFuture<Optional<DeviceState>> deviceState = device.thenCompose(d -> d.state().fetchAsync());
 
             // Until this point there's no blocking whatsoever. Now we block until we get futures values to print
             // some information

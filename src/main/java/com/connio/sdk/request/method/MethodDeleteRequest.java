@@ -8,16 +8,24 @@ public class MethodDeleteRequest extends ResourceDeleteRequest {
 
     private final String ownerId;
 
-    private final String alertId;
+    private final String methodId;
 
-    public MethodDeleteRequest(DeviceProfile deviceProfile, String alertId) {
+    public MethodDeleteRequest(String deviceProfileId, String methodId) {
+        this.ownerId = deviceProfileId;
+        this.methodId = methodId;
+
+        if (deviceProfileId == null || !deviceProfileId.startsWith("_dpf_"))
+            throw new IllegalArgumentException("Invalid device profile");
+    }
+
+    public MethodDeleteRequest(DeviceProfile deviceProfile, String methodId) {
         this.ownerId = deviceProfile.getId();
-        this.alertId = alertId;
+        this.methodId = methodId;
     }
 
     @Override
     protected Request request() {
-        final String path = "deviceprofiles/" + ownerId + "/methods/" + alertId;
+        final String path = "deviceprofiles/" + ownerId + "/methods/" + methodId;
         return Request.delete(path);
     }
 }

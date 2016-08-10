@@ -8,16 +8,24 @@ public class PropertyDeleteRequest extends ResourceDeleteRequest {
 
     private final String ownerId;
 
-    private final String alertId;
+    private final String propertyId;
 
-    public PropertyDeleteRequest(DeviceProfile deviceProfile, String alertId) {
+    public PropertyDeleteRequest(String deviceProfileId, String propertyId) {
+        this.ownerId = deviceProfileId;
+        this.propertyId = propertyId;
+
+        if (deviceProfileId == null || !deviceProfileId.startsWith("_dpf_"))
+            throw new IllegalArgumentException("Invalid device profile id");
+    }
+
+    public PropertyDeleteRequest(DeviceProfile deviceProfile, String propertyId) {
         this.ownerId = deviceProfile.getId();
-        this.alertId = alertId;
+        this.propertyId = propertyId;
     }
 
     @Override
     protected Request request() {
-        final String path = "deviceprofiles/" + ownerId + "/properties/" + alertId;
+        final String path = "deviceprofiles/" + ownerId + "/properties/" + propertyId;
         return Request.delete(path);
     }
 }

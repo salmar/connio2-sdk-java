@@ -186,7 +186,7 @@ public class Device extends Resource {
     }
 
     public DeviceUpdateRequest update() {
-        return new DeviceUpdateRequest(id);
+        return new DeviceUpdateRequest(this);
     }
 
     public DeviceDeleteRequest delete() {

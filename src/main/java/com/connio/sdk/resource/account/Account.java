@@ -1,5 +1,8 @@
 package com.connio.sdk.resource.account;
 
+import com.connio.sdk.request.account.AccountAddRequest;
+import com.connio.sdk.request.account.AccountDeleteRequest;
+import com.connio.sdk.request.account.AccountUpdateRequest;
 import com.connio.sdk.resource.Resource;
 import com.fasterxml.jackson.annotation.*;
 import com.google.common.base.MoreObjects;
@@ -8,10 +11,12 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Account extends Resource {
+public class Account extends Resource<AccountUpdateRequest, AccountDeleteRequest> {
 
     public enum Status {
         Created,
@@ -114,7 +119,7 @@ public class Account extends Resource {
         this.orgName = orgName;
         this.orgWebsite = orgWebsite;
         this.orgImageUri = orgImageUri;
-        this.tags = tags;
+        this.tags = tags != null ? tags : ImmutableSet.<String>of();
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
     }
@@ -135,8 +140,8 @@ public class Account extends Resource {
         return type;
     }
 
-    public String getOwnerId() {
-        return ownerId;
+    public Optional<String> getOwnerId() {
+        return Optional.ofNullable(ownerId);
     }
 
     public String getDefaultAppProfId() {
@@ -147,16 +152,16 @@ public class Account extends Resource {
         return defaultAppId;
     }
 
-    public String getOrgName() {
-        return orgName;
+    public Optional<String> getOrgName() {
+        return Optional.ofNullable(orgName);
     }
 
-    public String getOrgWebsite() {
-        return orgWebsite;
+    public Optional<String> getOrgWebsite() {
+        return Optional.ofNullable(orgWebsite);
     }
 
-    public String getOrgImageUri() {
-        return orgImageUri;
+    public Optional<String> getOrgImageUri() {
+        return Optional.ofNullable(orgImageUri);
     }
 
     public ImmutableSet<String> getTags() {
@@ -167,10 +172,23 @@ public class Account extends Resource {
         return dateCreated;
     }
 
-    public DateTime getDateModified() {
-        return dateModified;
+    public Optional<DateTime> getDateModified() {
+        return Optional.ofNullable(dateModified);
     }
 
+    public static AccountAddRequest create(String name, Account.Type type) {
+        return new AccountAddRequest(name, type);
+    }
+
+    @Override
+    public AccountUpdateRequest update() {
+        return new AccountUpdateRequest(this);
+    }
+
+    @Override
+    public AccountDeleteRequest delete() {
+        return new AccountDeleteRequest(this);
+    }
     @Override
     public boolean equals(Object obj) {
         if (obj == null || getClass() != obj.getClass()) {
@@ -191,19 +209,19 @@ public class Account extends Resource {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper("Account")
-                .add("id", getId().toString())
-                .add("name", getName().toString())
-                .add("ownerId", getOwnerId())
-                .add("defaultAppProfId", getDefaultAppProfId())
-                .add("defaultAppId", getDefaultAppId())
-                .add("status", getStatus())
-                .add("type", getType())
-                .add("orgName", getOrgName())
-                .add("orgWebsite", getOrgWebsite())
-                .add("orgImageUri", getOrgImageUri())
-                .add("tags", getTags())
-                .add("dateCreated", getDateCreated())
-                .add("dateModified", getDateModified())
+                .add("id", id.toString())
+                .add("name", name.toString())
+                .add("ownerId", ownerId)
+                .add("defaultAppProfId", defaultAppProfId)
+                .add("defaultAppId", defaultAppId)
+                .add("status", status)
+                .add("type", type)
+                .add("orgName", orgName)
+                .add("orgWebsite", orgWebsite)
+                .add("orgImageUri", orgImageUri)
+                .add("tags", tags)
+                .add("dateCreated", dateCreated)
+                .add("dateModified", dateModified)
                 .toString();
     }
 

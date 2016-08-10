@@ -18,6 +18,7 @@ import com.google.common.collect.ImmutableSet;
 import org.joda.time.DateTime;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -77,32 +78,32 @@ public class DeviceProfile extends Resource {
         return accountId;
     }
 
-    public String getBaseProfile() {
-        return baseProfile;
+    public Optional<String> getBaseProfile() {
+        return Optional.ofNullable(baseProfile);
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public Optional<String> getDescription() {
+        return Optional.ofNullable(description);
     }
 
-    public String getDeviceClass() {
-        return deviceClass;
+    public Optional<String> getDeviceClass() {
+        return Optional.ofNullable(deviceClass);
     }
 
-    public String getVendorName() {
-        return vendorName;
+    public Optional<String> getVendorName() {
+        return Optional.ofNullable(vendorName);
     }
 
-    public String getProductName() {
-        return productName;
+    public Optional<String> getProductName() {
+        return Optional.ofNullable(productName);
     }
 
-    public String getImageUri() {
-        return imageUri;
+    public Optional<String> getImageUri() {
+        return Optional.ofNullable(imageUri);
     }
 
     public ImmutableSet<String> getTags() {

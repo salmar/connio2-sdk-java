@@ -1,10 +1,10 @@
 package com.connio.sdk.resource.user;
 
+import com.connio.sdk.request.user.UserDeleteRequest;
+import com.connio.sdk.request.user.UserInviteRequest;
+import com.connio.sdk.request.user.UserUpdateRequest;
 import com.connio.sdk.resource.Resource;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.*;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -12,9 +12,11 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 
 import java.util.Objects;
+import java.util.Optional;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class User extends Resource {
+public class User extends Resource<UserUpdateRequest, UserDeleteRequest> {
 
     public enum Role {
         Admin,
@@ -141,24 +143,38 @@ public class User extends Resource {
         return prefs;
     }
 
-    public String getAvatarUri() {
-        return avatarUri;
+    public Optional<String> getAvatarUri() {
+        return Optional.ofNullable(avatarUri);
     }
 
-    public String getTimezone() {
-        return timezone;
+    public Optional<String> getTimezone() {
+        return Optional.ofNullable(timezone);
     }
 
-    public String getLang() {
-        return lang;
+    public Optional<String> getLang() {
+        return Optional.ofNullable(lang);
     }
 
     public DateTime getDateCreated() {
         return dateCreated;
     }
 
-    public DateTime getDateModified() {
-        return dateModified;
+    public Optional<DateTime> getDateModified() {
+        return Optional.ofNullable(dateModified);
+    }
+
+    public static UserInviteRequest invite(String email, String fullName) {
+        return new UserInviteRequest(email, fullName);
+    }
+
+    @Override
+    public UserUpdateRequest update() {
+        return new UserUpdateRequest(id);
+    }
+
+    @Override
+    public UserDeleteRequest delete() {
+        return new UserDeleteRequest(id);
     }
 
     @Override
@@ -170,7 +186,7 @@ public class User extends Resource {
             return true;
         }
         User other = (User) obj;
-        return Objects.equals(this.getEmail(), other.getEmail());
+        return Objects.equals(this.email, other.email);
     }
 
     @Override
@@ -181,16 +197,16 @@ public class User extends Resource {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper("User")
-                .add("id", getId().toString())
-                .add("email", getEmail())
+                .add("id", id)
+                .add("email", email)
                 .add("password", "*********")
-                .add("roles", getRoles())
-                .add("status", getStatus())
-                .add("fullName", getFullName())
-                .add("avatarUri", getAvatarUri())
-                .add("timezone", getTimezone())
-                .add("lang", getLang())
-                .add("account", getAccountId().toString())
+                .add("roles", roles)
+                .add("status", status)
+                .add("fullName", fullName)
+                .add("avatarUri", avatarUri)
+                .add("timezone", timezone)
+                .add("lang", lang)
+                .add("account", accountId)
                 .toString();
     }
 }

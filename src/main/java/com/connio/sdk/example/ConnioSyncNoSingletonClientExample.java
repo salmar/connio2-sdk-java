@@ -2,6 +2,7 @@ package com.connio.sdk.example;
 
 import com.connio.sdk.Connio;
 import com.connio.sdk.ConnioApiClient;
+import com.connio.sdk.ConnioApiClientImpl;
 import com.connio.sdk.SequentialAccessResultPage;
 import com.connio.sdk.resource.data.*;
 import com.connio.sdk.resource.device.Device;
@@ -20,7 +21,7 @@ public class ConnioSyncNoSingletonClientExample {
 		try {
 
             // Create an istance of the ConnioApiClient
-            ConnioApiClient apiClient = new ConnioApiClient("_key_671901158138828071", "31acec81b2414b03acf3d8c37ebdf305");
+            ConnioApiClientImpl apiClient = new ConnioApiClientImpl("_key_671901158138828071", "31acec81b2414b03acf3d8c37ebdf305");
 
             // Create device profile add request and execute device profile creation
             final DeviceProfile deviceProfile = DeviceProfile.create("device_profile_sdk").execute(apiClient);
