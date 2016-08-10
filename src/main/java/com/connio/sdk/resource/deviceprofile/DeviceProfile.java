@@ -1,13 +1,13 @@
 package com.connio.sdk.resource.deviceprofile;
 
-import com.connio.sdk.request.alert.AlertAddRequest;
-import com.connio.sdk.request.device.DeviceAddRequest;
-import com.connio.sdk.request.deviceprofile.DeviceProfileAddRequest;
+import com.connio.sdk.request.alert.AlertCreateRequest;
+import com.connio.sdk.request.device.DeviceCreateRequest;
+import com.connio.sdk.request.deviceprofile.DeviceProfileCreateRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileDeleteRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileFetchRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileUpdateRequest;
-import com.connio.sdk.request.method.MethodAddRequest;
-import com.connio.sdk.request.property.PropertyAddRequest;
+import com.connio.sdk.request.method.MethodCreateRequest;
+import com.connio.sdk.request.property.PropertyCreateRequest;
 import com.connio.sdk.resource.Resource;
 import com.connio.sdk.resource.alert.AlertCheck;
 import com.connio.sdk.resource.alert.Notification;
@@ -119,8 +119,8 @@ public class DeviceProfile extends Resource {
         return new DeviceProfileFetchRequest(deviceProfileId);
     }
 
-    public static DeviceProfileAddRequest create(String name) {
-        return new DeviceProfileAddRequest(name);
+    public static DeviceProfileCreateRequest create(String name) {
+        return new DeviceProfileCreateRequest(name);
     }
 
     @Override
@@ -133,22 +133,22 @@ public class DeviceProfile extends Resource {
         return new DeviceProfileDeleteRequest(this);
     }
 
-    public DeviceAddRequest addDevice() {
-        return new DeviceAddRequest(this);
+    public DeviceCreateRequest addDevice() {
+        return new DeviceCreateRequest(this);
     }
 
-    public PropertyAddRequest addProperty(String name, Property.Type type) {
-        return new PropertyAddRequest(this, name, type);
+    public PropertyCreateRequest addProperty(String name, Property.Type type) {
+        return new PropertyCreateRequest(this, name, type);
     }
 
-    public MethodAddRequest addMethod(String name, Method.Access access, MethodImpl implementation) {
-        return new MethodAddRequest(this, name, access, implementation);
+    public MethodCreateRequest addMethod(String name, Method.Access access, MethodImpl implementation) {
+        return new MethodCreateRequest(this, name, access, implementation);
     }
 
-    public AlertAddRequest addAlert(String name, String triggerPropId, String metric, ImmutableList<AlertCheck> checks,
+    public AlertCreateRequest addAlert(String name, String triggerPropId, String metric, ImmutableList<AlertCheck> checks,
                                     ImmutableList<Notification> notifications) {
 
-        return new AlertAddRequest(this, name, triggerPropId, metric, checks, notifications);
+        return new AlertCreateRequest(this, name, triggerPropId, metric, checks, notifications);
     }
 
     @Override

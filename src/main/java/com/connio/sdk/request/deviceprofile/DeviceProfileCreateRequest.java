@@ -1,6 +1,6 @@
 package com.connio.sdk.request.deviceprofile;
 
-import com.connio.sdk.request.ResourceAddRequest;
+import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
@@ -11,7 +11,7 @@ import com.google.common.collect.ImmutableSet;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
+public class DeviceProfileCreateRequest extends ResourceCreateRequest<DeviceProfile> {
 
     private final String name;
 
@@ -29,7 +29,7 @@ public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
 
     private ImmutableSet<String> tags;
 
-    public DeviceProfileAddRequest(String name) {
+    public DeviceProfileCreateRequest(String name) {
         this.name = name;
     }
 
@@ -41,7 +41,7 @@ public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
         return baseProfile;
     }
 
-    public DeviceProfileAddRequest setBaseProfile(DeviceProfile baseProfile) {
+    public DeviceProfileCreateRequest setBaseProfile(DeviceProfile baseProfile) {
         this.baseProfile = baseProfile.getId();
         return this;
     }
@@ -50,7 +50,7 @@ public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
         return description;
     }
 
-    public DeviceProfileAddRequest setDescription(String description) {
+    public DeviceProfileCreateRequest setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -59,7 +59,7 @@ public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
         return deviceClass;
     }
 
-    public DeviceProfileAddRequest setDeviceClass(String deviceClass) {
+    public DeviceProfileCreateRequest setDeviceClass(String deviceClass) {
         this.deviceClass = deviceClass;
         return this;
     }
@@ -68,7 +68,7 @@ public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
         return vendorName;
     }
 
-    public DeviceProfileAddRequest setVendorName(String vendorName) {
+    public DeviceProfileCreateRequest setVendorName(String vendorName) {
         this.vendorName = vendorName;
         return this;
     }
@@ -77,7 +77,7 @@ public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
         return productName;
     }
 
-    public DeviceProfileAddRequest setProductName(String productName) {
+    public DeviceProfileCreateRequest setProductName(String productName) {
         this.productName = productName;
         return this;
     }
@@ -86,7 +86,7 @@ public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
         return imageUri;
     }
 
-    public DeviceProfileAddRequest setImageUri(String imageUri) {
+    public DeviceProfileCreateRequest setImageUri(String imageUri) {
         this.imageUri = imageUri;
         return this;
     }
@@ -95,7 +95,7 @@ public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
         return tags;
     }
 
-    public DeviceProfileAddRequest setTags(ImmutableSet<String> tags) {
+    public DeviceProfileCreateRequest setTags(ImmutableSet<String> tags) {
         this.tags = tags;
         return this;
     }
@@ -116,7 +116,7 @@ public class DeviceProfileAddRequest extends ResourceAddRequest<DeviceProfile> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DeviceProfileAddRequest that = (DeviceProfileAddRequest) o;
+        DeviceProfileCreateRequest that = (DeviceProfileCreateRequest) o;
         return Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getBaseProfile(), that.getBaseProfile()) &&
                 Objects.equals(getDescription(), that.getDescription()) &&

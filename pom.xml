@@ -113,12 +113,13 @@
 			<groupId>com.xebialabs.restito</groupId>
 			<artifactId>restito</artifactId>
 			<version>0.8.2</version>
+            <scope>test</scope>
 		</dependency>
 
 	</dependencies>
 
 	<build>
-		<finalName>connio-client-example</finalName>
+		<finalName>connio-sdk</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -126,22 +127,6 @@
                 <configuration>
 					<source>1.8</source>
 					<target>1.8</target>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>java</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<mainClass>com.connio.sdk.client.ConnioClientExample</mainClass>
 				</configuration>
 			</plugin>
 

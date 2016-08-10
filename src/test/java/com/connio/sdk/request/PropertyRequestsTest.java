@@ -1,14 +1,12 @@
 package com.connio.sdk.request;
 
 import com.connio.sdk.Connio;
-import com.connio.sdk.ConnioApiClient;
 import com.connio.sdk.ConnioApiClientImpl;
-import com.connio.sdk.http.JerseyClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.request.alert.AlertDeleteRequest;
 import com.connio.sdk.request.method.MethodUpdateRequest;
-import com.connio.sdk.request.property.PropertyAddRequest;
+import com.connio.sdk.request.property.PropertyCreateRequest;
 import com.connio.sdk.request.property.PropertyDeleteRequest;
 import com.connio.sdk.request.property.PropertyUpdateRequest;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
@@ -45,7 +43,7 @@ public class PropertyRequestsTest {
     @Test
     public void methodCreationShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final PropertyAddRequest addRequest = new PropertyAddRequest(dp, property.getName(), property.getType())
+            final PropertyCreateRequest addRequest = new PropertyCreateRequest(dp, property.getName(), property.getType())
                     .setAccess(property.getAccess())
                     .setBoundaries(property.getBoundaries().orElse(null))
                     .setMeasurement(property.getMeasurement())
@@ -59,7 +57,7 @@ public class PropertyRequestsTest {
             connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 4;
         }};
 
-        final PropertyAddRequest request = Property.create(dp, property.getName(), property.getType())
+        final PropertyCreateRequest request = Property.create(dp, property.getName(), property.getType())
                 .setAccess(property.getAccess())
                 .setBoundaries(property.getBoundaries().orElse(null))
                 .setMeasurement(property.getMeasurement())
@@ -72,7 +70,7 @@ public class PropertyRequestsTest {
             request.execute(connioApiClient);
             request.executeAsync(connioApiClient);
 
-        final PropertyAddRequest request2 = dp.addProperty(property.getName(), property.getType())
+        final PropertyCreateRequest request2 = dp.addProperty(property.getName(), property.getType())
                 .setAccess(property.getAccess())
                 .setBoundaries(property.getBoundaries().orElse(null))
                 .setMeasurement(property.getMeasurement())

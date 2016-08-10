@@ -1,6 +1,6 @@
 package com.connio.sdk.resource.account;
 
-import com.connio.sdk.request.account.AccountAddRequest;
+import com.connio.sdk.request.account.AccountCreateRequest;
 import com.connio.sdk.request.account.AccountDeleteRequest;
 import com.connio.sdk.request.account.AccountFetchRequest;
 import com.connio.sdk.request.account.AccountUpdateRequest;
@@ -180,8 +180,8 @@ public class Account extends Resource<AccountUpdateRequest, AccountDeleteRequest
         return new AccountFetchRequest(accountId);
     }
 
-    public static AccountAddRequest create(String name, Account.Type type) {
-        return new AccountAddRequest(name, type);
+    public static AccountCreateRequest create(String name, Account.Type type) {
+        return new AccountCreateRequest(name, type);
     }
 
     @Override

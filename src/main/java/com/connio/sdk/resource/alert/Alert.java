@@ -1,6 +1,6 @@
 package com.connio.sdk.resource.alert;
 
-import com.connio.sdk.request.alert.AlertAddRequest;
+import com.connio.sdk.request.alert.AlertCreateRequest;
 import com.connio.sdk.request.alert.AlertDeleteRequest;
 import com.connio.sdk.request.alert.AlertUpdateRequest;
 import com.connio.sdk.resource.Resource;
@@ -165,16 +165,16 @@ public class Alert extends Resource<AlertUpdateRequest, AlertDeleteRequest> {
         return Optional.ofNullable(dateModified);
     }
 
-    public static AlertAddRequest create(DeviceProfile deviceProfile, String name, String triggerPropId, String metric,
+    public static AlertCreateRequest create(DeviceProfile deviceProfile, String name, String triggerPropId, String metric,
                                   ImmutableList<AlertCheck> checks, ImmutableList<Notification> notifications) {
 
-        return new AlertAddRequest(deviceProfile, name, triggerPropId, metric, checks, notifications);
+        return new AlertCreateRequest(deviceProfile, name, triggerPropId, metric, checks, notifications);
     }
 
-    public static AlertAddRequest create(Device device, String name, String triggerPropId, String metric,
+    public static AlertCreateRequest create(Device device, String name, String triggerPropId, String metric,
                                   ImmutableList<AlertCheck> checks, ImmutableList<Notification> notifications) {
 
-        return new AlertAddRequest(device, name, triggerPropId, metric, checks, notifications);
+        return new AlertCreateRequest(device, name, triggerPropId, metric, checks, notifications);
     }
 
     @Override

@@ -1,12 +1,10 @@
 package com.connio.sdk.request;
 
 import com.connio.sdk.Connio;
-import com.connio.sdk.ConnioApiClient;
 import com.connio.sdk.ConnioApiClientImpl;
-import com.connio.sdk.http.JerseyClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
-import com.connio.sdk.request.device.DeviceAddRequest;
+import com.connio.sdk.request.device.DeviceCreateRequest;
 import com.connio.sdk.request.device.DeviceDeleteRequest;
 import com.connio.sdk.request.device.DeviceUpdateRequest;
 import com.connio.sdk.resource.device.Device;
@@ -42,7 +40,7 @@ public class DeviceRequestsTest {
     @Test
     public void addRequestShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final DeviceAddRequest addRequest = new DeviceAddRequest(dp)
+            final DeviceCreateRequest addRequest = new DeviceCreateRequest(dp)
                     .setAnnotateWithLoc(device.isAnnotateWithLoc())
                     .setAnnotateWithMeta(device.isAnnotateWithMeta())
                     .setCustomIds(device.getCustomIds())
@@ -60,7 +58,7 @@ public class DeviceRequestsTest {
             connioApiClient.requestAsync(request); times = 2;
         }};
 
-        final DeviceAddRequest request = Device.create(dp)
+        final DeviceCreateRequest request = Device.create(dp)
                 .setAnnotateWithLoc(device.isAnnotateWithLoc())
                 .setAnnotateWithMeta(device.isAnnotateWithMeta())
                 .setCustomIds(device.getCustomIds())

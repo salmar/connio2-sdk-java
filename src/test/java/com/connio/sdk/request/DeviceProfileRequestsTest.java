@@ -1,12 +1,10 @@
 package com.connio.sdk.request;
 
 import com.connio.sdk.Connio;
-import com.connio.sdk.ConnioApiClient;
 import com.connio.sdk.ConnioApiClientImpl;
-import com.connio.sdk.http.JerseyClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
-import com.connio.sdk.request.deviceprofile.DeviceProfileAddRequest;
+import com.connio.sdk.request.deviceprofile.DeviceProfileCreateRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileDeleteRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileUpdateRequest;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
@@ -38,7 +36,7 @@ public class DeviceProfileRequestsTest {
     @Test
     public void addRequestShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final DeviceProfileAddRequest addRequest = new DeviceProfileAddRequest(dp.getName())
+            final DeviceProfileCreateRequest addRequest = new DeviceProfileCreateRequest(dp.getName())
                     .setDescription(dp.getDescription().orElse(""))
                     .setDeviceClass(dp.getDeviceClass().orElse(""))
                     .setImageUri(dp.getImageUri().orElse(""))
@@ -52,7 +50,7 @@ public class DeviceProfileRequestsTest {
             connioApiClient.requestAsync(request); times = 2;
         }};
 
-        final DeviceProfileAddRequest request = DeviceProfile.create(dp.getName())
+        final DeviceProfileCreateRequest request = DeviceProfile.create(dp.getName())
                 .setDescription(dp.getDescription().orElse(""))
                 .setDeviceClass(dp.getDeviceClass().orElse(""))
                 .setImageUri(dp.getImageUri().orElse(""))

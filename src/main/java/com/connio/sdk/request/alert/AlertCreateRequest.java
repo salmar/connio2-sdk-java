@@ -2,7 +2,7 @@ package com.connio.sdk.request.alert;
 
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
-import com.connio.sdk.request.ResourceAddRequest;
+import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.resource.alert.Alert;
 import com.connio.sdk.resource.alert.AlertCheck;
 import com.connio.sdk.resource.alert.AlertHandler;
@@ -17,7 +17,7 @@ import com.google.common.collect.ImmutableSet;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AlertAddRequest extends ResourceAddRequest<Alert> {
+public class AlertCreateRequest extends ResourceCreateRequest<Alert> {
 
     private final String ownerId;
 
@@ -39,8 +39,8 @@ public class AlertAddRequest extends ResourceAddRequest<Alert> {
 
     private AlertHandler recover;
 
-    public AlertAddRequest(DeviceProfile deviceProfile, String name, String triggerPropId, String metric,
-                           ImmutableList<AlertCheck> checks, ImmutableList<Notification> notifications) {
+    public AlertCreateRequest(DeviceProfile deviceProfile, String name, String triggerPropId, String metric,
+                              ImmutableList<AlertCheck> checks, ImmutableList<Notification> notifications) {
 
         this.ownerId = deviceProfile.getId();
         this.name = name;
@@ -50,8 +50,8 @@ public class AlertAddRequest extends ResourceAddRequest<Alert> {
         this.notifications = notifications;
     }
 
-    public AlertAddRequest(Device device, String name, String triggerPropId, String metric,
-                           ImmutableList<AlertCheck> checks, ImmutableList<Notification> notifications) {
+    public AlertCreateRequest(Device device, String name, String triggerPropId, String metric,
+                              ImmutableList<AlertCheck> checks, ImmutableList<Notification> notifications) {
 
         this.ownerId = device.getId();
         this.name = name;
@@ -85,7 +85,7 @@ public class AlertAddRequest extends ResourceAddRequest<Alert> {
         return description;
     }
 
-    public AlertAddRequest setDescription(String description) {
+    public AlertCreateRequest setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -94,7 +94,7 @@ public class AlertAddRequest extends ResourceAddRequest<Alert> {
         return tags;
     }
 
-    public AlertAddRequest setTags(ImmutableSet<String> tags) {
+    public AlertCreateRequest setTags(ImmutableSet<String> tags) {
         this.tags = tags;
         return this;
     }
@@ -103,7 +103,7 @@ public class AlertAddRequest extends ResourceAddRequest<Alert> {
         return status;
     }
 
-    public AlertAddRequest setStatus(Alert.Status status) {
+    public AlertCreateRequest setStatus(Alert.Status status) {
         this.status = status;
         return this;
     }
@@ -112,7 +112,7 @@ public class AlertAddRequest extends ResourceAddRequest<Alert> {
         return recover;
     }
 
-    public AlertAddRequest setRecover(AlertHandler recover) {
+    public AlertCreateRequest setRecover(AlertHandler recover) {
         this.recover = recover;
         return this;
     }
@@ -134,7 +134,7 @@ public class AlertAddRequest extends ResourceAddRequest<Alert> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AlertAddRequest that = (AlertAddRequest) o;
+        AlertCreateRequest that = (AlertCreateRequest) o;
         return Objects.equals(ownerId, that.ownerId) &&
                 Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getTriggerPropId(), that.getTriggerPropId()) &&
@@ -155,7 +155,7 @@ public class AlertAddRequest extends ResourceAddRequest<Alert> {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper("AlertAddRequest")
+        return MoreObjects.toStringHelper("AlertCreateRequest")
                 .add("ownerId", ownerId)
                 .add("name", name)
                 .add("triggerPropId", triggerPropId)

@@ -1,9 +1,9 @@
 package com.connio.sdk.resource.device;
 
-import com.connio.sdk.request.alert.AlertAddRequest;
+import com.connio.sdk.request.alert.AlertCreateRequest;
 import com.connio.sdk.request.alert.AlertRemoveIncidentRequest;
 import com.connio.sdk.request.data.*;
-import com.connio.sdk.request.device.DeviceAddRequest;
+import com.connio.sdk.request.device.DeviceCreateRequest;
 import com.connio.sdk.request.device.DeviceDeleteRequest;
 import com.connio.sdk.request.device.DeviceFetchRequest;
 import com.connio.sdk.request.device.DeviceUpdateRequest;
@@ -192,8 +192,8 @@ public class Device extends Resource<DeviceUpdateRequest, DeviceDeleteRequest> {
         return new DeviceFetchRequest(deviceId);
     }
 
-    public static DeviceAddRequest create(DeviceProfile deviceProfile) {
-        return new DeviceAddRequest(deviceProfile);
+    public static DeviceCreateRequest create(DeviceProfile deviceProfile) {
+        return new DeviceCreateRequest(deviceProfile);
     }
 
     @Override
@@ -234,10 +234,10 @@ public class Device extends Resource<DeviceUpdateRequest, DeviceDeleteRequest> {
         return new DeviceStateFetchRequest(this);
     }
 
-    public AlertAddRequest addAlert(String name, String triggerPropId, String metric, ImmutableList<AlertCheck> checks,
+    public AlertCreateRequest addAlert(String name, String triggerPropId, String metric, ImmutableList<AlertCheck> checks,
                                     ImmutableList<Notification> notifications) {
 
-        return new AlertAddRequest(this, name, triggerPropId, metric, checks, notifications);
+        return new AlertCreateRequest(this, name, triggerPropId, metric, checks, notifications);
     }
 
     public AlertRemoveIncidentRequest removeIncident(Alert alert) {

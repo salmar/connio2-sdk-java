@@ -1,6 +1,6 @@
 package com.connio.sdk.request.method;
 
-import com.connio.sdk.request.ResourceAddRequest;
+import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MethodAddRequest extends ResourceAddRequest<Method> {
+public class MethodCreateRequest extends ResourceCreateRequest<Method> {
 
     private final String deviceProfileId;
 
@@ -28,7 +28,7 @@ public class MethodAddRequest extends ResourceAddRequest<Method> {
 
     private String outputId;
 
-    public MethodAddRequest(DeviceProfile deviceProfile, String name, Method.Access access, MethodImpl methodImpl) {
+    public MethodCreateRequest(DeviceProfile deviceProfile, String name, Method.Access access, MethodImpl methodImpl) {
         this.deviceProfileId = deviceProfile.getId();
         this.name = name;
         this.access = access;
@@ -55,7 +55,7 @@ public class MethodAddRequest extends ResourceAddRequest<Method> {
         return inputPropTTL;
     }
 
-    public MethodAddRequest setInputPropTTL(Long inputPropTTL) {
+    public MethodCreateRequest setInputPropTTL(Long inputPropTTL) {
         this.inputPropTTL = inputPropTTL;
         return this;
     }
@@ -64,7 +64,7 @@ public class MethodAddRequest extends ResourceAddRequest<Method> {
         return inputId;
     }
 
-    public MethodAddRequest setInputId(String inputId) {
+    public MethodCreateRequest setInputId(String inputId) {
         this.inputId = inputId;
         return this;
     }
@@ -73,7 +73,7 @@ public class MethodAddRequest extends ResourceAddRequest<Method> {
         return outputId;
     }
 
-    public MethodAddRequest setOutputId(String outputId) {
+    public MethodCreateRequest setOutputId(String outputId) {
         this.outputId = outputId;
         return this;
     }
@@ -95,7 +95,7 @@ public class MethodAddRequest extends ResourceAddRequest<Method> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MethodAddRequest that = (MethodAddRequest) o;
+        MethodCreateRequest that = (MethodCreateRequest) o;
         return Objects.equals(getDeviceProfileId(), that.getDeviceProfileId()) &&
                 Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getAccess(), that.getAccess()) &&

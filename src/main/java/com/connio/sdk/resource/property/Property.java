@@ -1,6 +1,6 @@
 package com.connio.sdk.resource.property;
 
-import com.connio.sdk.request.property.PropertyAddRequest;
+import com.connio.sdk.request.property.PropertyCreateRequest;
 import com.connio.sdk.request.property.PropertyDeleteRequest;
 import com.connio.sdk.request.property.PropertyUpdateRequest;
 import com.connio.sdk.resource.Resource;
@@ -175,8 +175,8 @@ public class Property extends Resource<PropertyUpdateRequest, PropertyDeleteRequ
         return Optional.ofNullable(dateModified);
     }
 
-    public static PropertyAddRequest create(DeviceProfile deviceProfile, String name, Type type) {
-        return new PropertyAddRequest(deviceProfile, name, type);
+    public static PropertyCreateRequest create(DeviceProfile deviceProfile, String name, Type type) {
+        return new PropertyCreateRequest(deviceProfile, name, type);
     }
 
     @Override

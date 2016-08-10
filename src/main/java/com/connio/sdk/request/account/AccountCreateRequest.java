@@ -1,6 +1,6 @@
 package com.connio.sdk.request.account;
 
-import com.connio.sdk.request.ResourceAddRequest;
+import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.account.Account;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AccountAddRequest extends ResourceAddRequest<Account> {
+public class AccountCreateRequest extends ResourceCreateRequest<Account> {
 
     private final String name;
 
@@ -24,7 +24,7 @@ public class AccountAddRequest extends ResourceAddRequest<Account> {
     private String orgImageUri;
 
 
-    public AccountAddRequest(String name, Account.Type type) {
+    public AccountCreateRequest(String name, Account.Type type) {
         this.name = name;
         this.type = type;
     }
@@ -41,7 +41,7 @@ public class AccountAddRequest extends ResourceAddRequest<Account> {
         return status;
     }
 
-    public AccountAddRequest setStatus(Account.Status status) {
+    public AccountCreateRequest setStatus(Account.Status status) {
         this.status = status;
         return this;
     }
@@ -50,7 +50,7 @@ public class AccountAddRequest extends ResourceAddRequest<Account> {
         return orgName;
     }
 
-    public AccountAddRequest setOrgName(String orgName) {
+    public AccountCreateRequest setOrgName(String orgName) {
         this.orgName = orgName;
         return this;
     }
@@ -59,7 +59,7 @@ public class AccountAddRequest extends ResourceAddRequest<Account> {
         return orgWebsite;
     }
 
-    public AccountAddRequest setOrgWebsite(String orgWebsite) {
+    public AccountCreateRequest setOrgWebsite(String orgWebsite) {
         this.orgWebsite = orgWebsite;
         return this;
     }
@@ -68,7 +68,7 @@ public class AccountAddRequest extends ResourceAddRequest<Account> {
         return orgImageUri;
     }
 
-    public AccountAddRequest setOrgImageUri(String orgImageUri) {
+    public AccountCreateRequest setOrgImageUri(String orgImageUri) {
         this.orgImageUri = orgImageUri;
         return this;
     }
@@ -87,7 +87,7 @@ public class AccountAddRequest extends ResourceAddRequest<Account> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AccountAddRequest that = (AccountAddRequest) o;
+        AccountCreateRequest that = (AccountCreateRequest) o;
         return Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getType(), that.getType()) &&
                 Objects.equals(getStatus(), that.getStatus()) &&

@@ -1,6 +1,6 @@
 package com.connio.sdk.request.property;
 
-import com.connio.sdk.request.ResourceAddRequest;
+import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PropertyAddRequest extends ResourceAddRequest<Property> {
+public class PropertyCreateRequest extends ResourceCreateRequest<Property> {
 
     private final String name;
 
@@ -31,7 +31,7 @@ public class PropertyAddRequest extends ResourceAddRequest<Property> {
 
     private Retention retention;
 
-    public PropertyAddRequest(DeviceProfile deviceProfile, String name, final Property.Type type) {
+    public PropertyCreateRequest(DeviceProfile deviceProfile, String name, final Property.Type type) {
         this.deviceProfileId = deviceProfile.getId();
         this.name = name;
         this.type = type;
@@ -49,7 +49,7 @@ public class PropertyAddRequest extends ResourceAddRequest<Property> {
         return access;
     }
 
-    public PropertyAddRequest setAccess(Property.Access access) {
+    public PropertyCreateRequest setAccess(Property.Access access) {
         this.access = access;
         return this;
     }
@@ -58,7 +58,7 @@ public class PropertyAddRequest extends ResourceAddRequest<Property> {
         return publish;
     }
 
-    public PropertyAddRequest setPublish(Property.PublishPolicy publish) {
+    public PropertyCreateRequest setPublish(Property.PublishPolicy publish) {
         this.publish = publish;
         return this;
     }
@@ -67,7 +67,7 @@ public class PropertyAddRequest extends ResourceAddRequest<Property> {
         return measurement;
     }
 
-    public PropertyAddRequest setMeasurement(Measurement measurement) {
+    public PropertyCreateRequest setMeasurement(Measurement measurement) {
         this.measurement = measurement;
         return this;
     }
@@ -76,7 +76,7 @@ public class PropertyAddRequest extends ResourceAddRequest<Property> {
         return boundaries;
     }
 
-    public PropertyAddRequest setBoundaries(Boundaries boundaries) {
+    public PropertyCreateRequest setBoundaries(Boundaries boundaries) {
         this.boundaries = boundaries;
         return this;
     }
@@ -85,7 +85,7 @@ public class PropertyAddRequest extends ResourceAddRequest<Property> {
         return retention;
     }
 
-    public PropertyAddRequest setRetention(Retention retention) {
+    public PropertyCreateRequest setRetention(Retention retention) {
         this.retention = retention;
         return this;
     }
@@ -105,7 +105,7 @@ public class PropertyAddRequest extends ResourceAddRequest<Property> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PropertyAddRequest that = (PropertyAddRequest) o;
+        PropertyCreateRequest that = (PropertyCreateRequest) o;
         return Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getType(), that.getType()) &&
                 Objects.equals(deviceProfileId, that.deviceProfileId) &&

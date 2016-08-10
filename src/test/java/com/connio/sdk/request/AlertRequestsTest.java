@@ -5,7 +5,7 @@ import com.connio.sdk.ConnioApiClient;
 import com.connio.sdk.ConnioApiClientImpl;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
-import com.connio.sdk.request.alert.AlertAddRequest;
+import com.connio.sdk.request.alert.AlertCreateRequest;
 import com.connio.sdk.request.alert.AlertDeleteRequest;
 import com.connio.sdk.request.alert.AlertUpdateRequest;
 import com.connio.sdk.resource.alert.*;
@@ -58,7 +58,7 @@ public class AlertRequestsTest {
     @Test
     public void deviceProfileAlertCreationShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final AlertAddRequest addRequest = new AlertAddRequest(dp, alertDeviceProfile.getName(), alertDeviceProfile.getTriggerPropId(),
+            final AlertCreateRequest addRequest = new AlertCreateRequest(dp, alertDeviceProfile.getName(), alertDeviceProfile.getTriggerPropId(),
                     alertDeviceProfile.getMetric(), alertDeviceProfile.getChecks(), alertDeviceProfile.getNotifications())
                     .setDescription(alertDeviceProfile.getDescription().orElse(""))
                     .setRecover(alertDeviceProfile.getRecover().orElse(null))
@@ -75,7 +75,7 @@ public class AlertRequestsTest {
 
         final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
 
-        final AlertAddRequest request = Alert.create(dp, alertDeviceProfile.getName(), alertDeviceProfile.getTriggerPropId(),
+        final AlertCreateRequest request = Alert.create(dp, alertDeviceProfile.getName(), alertDeviceProfile.getTriggerPropId(),
                 alertDeviceProfile.getMetric(), alertDeviceProfile.getChecks(), alertDeviceProfile.getNotifications())
                 .setDescription(alertDeviceProfile.getDescription().orElse(""))
                 .setRecover(alertDeviceProfile.getRecover().orElse(null))
@@ -88,7 +88,7 @@ public class AlertRequestsTest {
             request.execute(apiClient);
             request.executeAsync(apiClient);
 
-        final AlertAddRequest request2 = dp.addAlert(alertDeviceProfile.getName(), alertDeviceProfile.getTriggerPropId(),
+        final AlertCreateRequest request2 = dp.addAlert(alertDeviceProfile.getName(), alertDeviceProfile.getTriggerPropId(),
                 alertDeviceProfile.getMetric(), alertDeviceProfile.getChecks(), alertDeviceProfile.getNotifications())
                 .setDescription(alertDeviceProfile.getDescription().orElse(""))
                 .setRecover(alertDeviceProfile.getRecover().orElse(null))
@@ -106,7 +106,7 @@ public class AlertRequestsTest {
     @Test
     public void deviceAlertCreationShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final AlertAddRequest addRequest = new AlertAddRequest(dev, alertDevice.getName(), alertDevice.getTriggerPropId(),
+            final AlertCreateRequest addRequest = new AlertCreateRequest(dev, alertDevice.getName(), alertDevice.getTriggerPropId(),
                     alertDevice.getMetric(), alertDevice.getChecks(), alertDevice.getNotifications())
                     .setDescription(alertDevice.getDescription().orElse(""))
                     .setRecover(alertDevice.getRecover().orElse(null))
@@ -121,7 +121,7 @@ public class AlertRequestsTest {
             connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 4;
         }};
 
-        final AlertAddRequest request = Alert.create(dev, alertDevice.getName(), alertDevice.getTriggerPropId(), alertDevice.getMetric(),
+        final AlertCreateRequest request = Alert.create(dev, alertDevice.getName(), alertDevice.getTriggerPropId(), alertDevice.getMetric(),
                 alertDevice.getChecks(), alertDevice.getNotifications())
                 .setDescription(alertDevice.getDescription().orElse(""))
                 .setRecover(alertDevice.getRecover().orElse(null))
@@ -134,7 +134,7 @@ public class AlertRequestsTest {
         request.execute(connioApiClient);
         request.executeAsync(connioApiClient);
 
-        final AlertAddRequest request2 = dev.addAlert(alertDevice.getName(), alertDevice.getTriggerPropId(), alertDevice.getMetric(),
+        final AlertCreateRequest request2 = dev.addAlert(alertDevice.getName(), alertDevice.getTriggerPropId(), alertDevice.getMetric(),
                 alertDeviceProfile.getChecks(), alertDevice.getNotifications())
                 .setDescription(alertDevice.getDescription().orElse(""))
                 .setRecover(alertDevice.getRecover().orElse(null))

@@ -4,7 +4,7 @@ import com.connio.sdk.Connio;
 import com.connio.sdk.ConnioApiClientImpl;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
-import com.connio.sdk.request.account.AccountAddRequest;
+import com.connio.sdk.request.account.AccountCreateRequest;
 import com.connio.sdk.request.account.AccountDeleteRequest;
 import com.connio.sdk.request.account.AccountUpdateRequest;
 import com.connio.sdk.resource.account.Account;
@@ -36,7 +36,7 @@ public class AccountRequestsTest {
     @Test
     public void addRequestShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final AccountAddRequest addRequest = new AccountAddRequest("account", Account.Type.Full)
+            final AccountCreateRequest addRequest = new AccountCreateRequest("account", Account.Type.Full)
                     .setOrgImageUri("image")
                     .setOrgName("company")
                     .setOrgWebsite("www.test.com")
@@ -48,7 +48,7 @@ public class AccountRequestsTest {
             connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
-        final AccountAddRequest request = Account.create("account", Account.Type.Full)
+        final AccountCreateRequest request = Account.create("account", Account.Type.Full)
                 .setOrgImageUri("image")
                 .setOrgName("company")
                 .setOrgWebsite("www.test.com")

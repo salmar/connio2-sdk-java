@@ -1,6 +1,6 @@
 package com.connio.sdk.resource.method;
 
-import com.connio.sdk.request.method.MethodAddRequest;
+import com.connio.sdk.request.method.MethodCreateRequest;
 import com.connio.sdk.request.method.MethodDeleteRequest;
 import com.connio.sdk.request.method.MethodUpdateRequest;
 import com.connio.sdk.resource.Resource;
@@ -147,8 +147,8 @@ public class Method extends Resource<MethodUpdateRequest, MethodDeleteRequest> {
         return Optional.ofNullable(dateModified);
     }
 
-    public static MethodAddRequest create(DeviceProfile deviceProfile, String name, Access access, MethodImpl impl) {
-        return new MethodAddRequest(deviceProfile, name, access, impl);
+    public static MethodCreateRequest create(DeviceProfile deviceProfile, String name, Access access, MethodImpl impl) {
+        return new MethodCreateRequest(deviceProfile, name, access, impl);
     }
 
     @Override

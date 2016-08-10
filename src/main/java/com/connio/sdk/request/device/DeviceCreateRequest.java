@@ -1,6 +1,6 @@
 package com.connio.sdk.request.device;
 
-import com.connio.sdk.request.ResourceAddRequest;
+import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.device.Device;
@@ -14,7 +14,7 @@ import com.google.common.collect.ImmutableSet;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DeviceAddRequest extends ResourceAddRequest<Device> {
+public class DeviceCreateRequest extends ResourceCreateRequest<Device> {
 
     private String name;
 
@@ -39,7 +39,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
     private ImmutableSet<String> tags;
 
 
-    public DeviceAddRequest(DeviceProfile deviceProfile) {
+    public DeviceCreateRequest(DeviceProfile deviceProfile) {
         this.deviceProfile = deviceProfile.getId();
     }
 
@@ -47,7 +47,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
         return name;
     }
 
-    public DeviceAddRequest setName(String name) {
+    public DeviceCreateRequest setName(String name) {
         this.name = name;
         return this;
     }
@@ -60,7 +60,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
         return status;
     }
 
-    public DeviceAddRequest setStatus(Device.Status status) {
+    public DeviceCreateRequest setStatus(Device.Status status) {
         this.status = status;
         return this;
     }
@@ -69,7 +69,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
         return period;
     }
 
-    public DeviceAddRequest setPeriod(Integer period) {
+    public DeviceCreateRequest setPeriod(Integer period) {
         this.period = period;
         return this;
     }
@@ -78,7 +78,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
         return timezone;
     }
 
-    public DeviceAddRequest setTimezone(String timezone) {
+    public DeviceCreateRequest setTimezone(String timezone) {
         this.timezone = timezone;
         return this;
     }
@@ -87,7 +87,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
         return annotateWithLoc;
     }
 
-    public DeviceAddRequest setAnnotateWithLoc(Boolean annotateWithLoc) {
+    public DeviceCreateRequest setAnnotateWithLoc(Boolean annotateWithLoc) {
         this.annotateWithLoc = annotateWithLoc;
         return this;
     }
@@ -96,7 +96,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
         return annotateWithMeta;
     }
 
-    public DeviceAddRequest setAnnotateWithMeta(Boolean annotateWithMeta) {
+    public DeviceCreateRequest setAnnotateWithMeta(Boolean annotateWithMeta) {
         this.annotateWithMeta = annotateWithMeta;
         return this;
     }
@@ -105,7 +105,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
         return customIds;
     }
 
-    public DeviceAddRequest setCustomIds(ImmutableMap<Device.CustomId, String> customIds) {
+    public DeviceCreateRequest setCustomIds(ImmutableMap<Device.CustomId, String> customIds) {
         this.customIds = customIds;
         return this;
     }
@@ -114,7 +114,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
         return notes;
     }
 
-    public DeviceAddRequest setNotes(String notes) {
+    public DeviceCreateRequest setNotes(String notes) {
         this.notes = notes;
         return this;
     }
@@ -123,7 +123,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
         return location;
     }
 
-    public DeviceAddRequest setLocation(Location location) {
+    public DeviceCreateRequest setLocation(Location location) {
         this.location = location;
         return this;
     }
@@ -132,7 +132,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
         return tags;
     }
 
-    public DeviceAddRequest setTags(ImmutableSet<String> tags) {
+    public DeviceCreateRequest setTags(ImmutableSet<String> tags) {
         this.tags = tags;
         return this;
     }
@@ -153,7 +153,7 @@ public class DeviceAddRequest extends ResourceAddRequest<Device> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DeviceAddRequest that = (DeviceAddRequest) o;
+        DeviceCreateRequest that = (DeviceCreateRequest) o;
         return Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getDeviceProfile(), that.getDeviceProfile()) &&
                 Objects.equals(getStatus(), that.getStatus()) &&

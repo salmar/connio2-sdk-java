@@ -1,13 +1,11 @@
 package com.connio.sdk.request;
 
 import com.connio.sdk.Connio;
-import com.connio.sdk.ConnioApiClient;
 import com.connio.sdk.ConnioApiClientImpl;
-import com.connio.sdk.http.JerseyClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.request.alert.AlertDeleteRequest;
-import com.connio.sdk.request.method.MethodAddRequest;
+import com.connio.sdk.request.method.MethodCreateRequest;
 import com.connio.sdk.request.method.MethodDeleteRequest;
 import com.connio.sdk.request.method.MethodUpdateRequest;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
@@ -46,7 +44,7 @@ public class MethodRequestsTest {
     @Test
     public void methodCreationShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final MethodAddRequest addRequest = new MethodAddRequest(dp, method.getName(), method.getAccess(), method.getMethodImpl())
+            final MethodCreateRequest addRequest = new MethodCreateRequest(dp, method.getName(), method.getAccess(), method.getMethodImpl())
                     .setInputId(method.getInputId().orElse(""))
                     .setInputPropTTL(method.getInputPropTTL().orElse(null))
                     .setOutputId(method.getOutputId().orElse(""));
@@ -59,7 +57,7 @@ public class MethodRequestsTest {
             connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 4;
         }};
 
-        final MethodAddRequest request = Method.create(dp, method.getName(), method.getAccess(), method.getMethodImpl())
+        final MethodCreateRequest request = Method.create(dp, method.getName(), method.getAccess(), method.getMethodImpl())
                 .setInputId(method.getInputId().orElse(""))
                 .setInputPropTTL(method.getInputPropTTL().orElse(null))
                 .setOutputId(method.getOutputId().orElse(""));
@@ -70,7 +68,7 @@ public class MethodRequestsTest {
             request.execute(connioApiClient);
             request.executeAsync(connioApiClient);
 
-        final MethodAddRequest request2 = dp.addMethod(method.getName(), method.getAccess(), method.getMethodImpl())
+        final MethodCreateRequest request2 = dp.addMethod(method.getName(), method.getAccess(), method.getMethodImpl())
                 .setInputId(method.getInputId().orElse(""))
                 .setInputPropTTL(method.getInputPropTTL().orElse(null))
                 .setOutputId(method.getOutputId().orElse(""));
