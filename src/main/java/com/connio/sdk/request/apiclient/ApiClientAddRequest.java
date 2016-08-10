@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiClientAddRequest extends ResourceUpdateRequest<ApiClient> {
 
@@ -73,5 +75,22 @@ public class ApiClientAddRequest extends ResourceUpdateRequest<ApiClient> {
     @Override
     protected ApiClient parseEntity(Response response) {
         return response.readEntity(ApiClient.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ApiClientAddRequest that = (ApiClientAddRequest) o;
+        return Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(getTags(), that.getTags()) &&
+                Objects.equals(getContext(), that.getContext()) &&
+                Objects.equals(getScope(), that.getScope()) &&
+                Objects.equals(getRateLimit(), that.getRateLimit());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDescription(), getTags(), getContext(), getScope(), getRateLimit());
     }
 }

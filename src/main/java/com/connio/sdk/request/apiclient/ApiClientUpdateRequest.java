@@ -9,10 +9,12 @@ import com.connio.sdk.resource.apiclient.ApiClient;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiClientUpdateRequest extends ResourceUpdateRequest<ApiClient> {
 
-    private final String apiClientId;
+    private final ApiClient apiClient;
 
     private String description;
 
@@ -24,8 +26,8 @@ public class ApiClientUpdateRequest extends ResourceUpdateRequest<ApiClient> {
 
     ImmutableSet<ApiKeyScope> scope;
 
-    public ApiClientUpdateRequest(String apiClientId) {
-        this.apiClientId = apiClientId;
+    public ApiClientUpdateRequest(ApiClient apiClient) {
+        this.apiClient = apiClient;
     }
 
     public String getDescription() {
@@ -75,12 +77,30 @@ public class ApiClientUpdateRequest extends ResourceUpdateRequest<ApiClient> {
 
     @Override
     protected Request request() {
-        final String path = "apiclients/" + apiClientId;
+        final String path = "apiclients/" + apiClient.getId();
         return Request.put(path, this);
     }
 
     @Override
     protected ApiClient parseEntity(Response response) {
         return response.readEntity(ApiClient.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ApiClientUpdateRequest that = (ApiClientUpdateRequest) o;
+        return Objects.equals(apiClient, that.apiClient) &&
+                Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(getTags(), that.getTags()) &&
+                Objects.equals(getRateLimit(), that.getRateLimit()) &&
+                Objects.equals(getContext(), that.getContext()) &&
+                Objects.equals(getScope(), that.getScope());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(apiClient, getDescription(), getTags(), getRateLimit(), getContext(), getScope());
     }
 }

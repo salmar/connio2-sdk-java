@@ -85,12 +85,12 @@ public class ApiClient extends Resource<ApiClientUpdateRequest, ApiClientDeleteR
 
     @Override
     public ApiClientUpdateRequest update() {
-        return new ApiClientUpdateRequest(id);
+        return new ApiClientUpdateRequest(this);
     }
 
     @Override
     public ApiClientDeleteRequest delete() {
-        return new ApiClientDeleteRequest(id);
+        return new ApiClientDeleteRequest(this);
     }
 
     @Override
