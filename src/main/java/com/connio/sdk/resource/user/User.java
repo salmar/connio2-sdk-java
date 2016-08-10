@@ -1,6 +1,7 @@
 package com.connio.sdk.resource.user;
 
 import com.connio.sdk.request.user.UserDeleteRequest;
+import com.connio.sdk.request.user.UserFetchRequest;
 import com.connio.sdk.request.user.UserInviteRequest;
 import com.connio.sdk.request.user.UserUpdateRequest;
 import com.connio.sdk.resource.Resource;
@@ -161,6 +162,10 @@ public class User extends Resource<UserUpdateRequest, UserDeleteRequest> {
 
     public Optional<DateTime> getDateModified() {
         return Optional.ofNullable(dateModified);
+    }
+
+    public static UserFetchRequest fetch(String userId) {
+        return new UserFetchRequest(userId);
     }
 
     public static UserInviteRequest invite(String email, String fullName) {

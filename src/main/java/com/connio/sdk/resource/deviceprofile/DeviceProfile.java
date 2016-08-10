@@ -4,6 +4,7 @@ import com.connio.sdk.request.alert.AlertAddRequest;
 import com.connio.sdk.request.device.DeviceAddRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileAddRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileDeleteRequest;
+import com.connio.sdk.request.deviceprofile.DeviceProfileFetchRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileUpdateRequest;
 import com.connio.sdk.request.method.MethodAddRequest;
 import com.connio.sdk.request.property.PropertyAddRequest;
@@ -114,20 +115,26 @@ public class DeviceProfile extends Resource {
         return tags;
     }
 
-    public DeviceAddRequest addDevice() {
-        return new DeviceAddRequest(this);
+    public static DeviceProfileFetchRequest fetch(String deviceProfileId) {
+        return new DeviceProfileFetchRequest(deviceProfileId);
     }
 
     public static DeviceProfileAddRequest create(String name) {
         return new DeviceProfileAddRequest(name);
     }
 
+    @Override
     public DeviceProfileUpdateRequest update() {
         return new DeviceProfileUpdateRequest(this);
     }
 
+    @Override
     public DeviceProfileDeleteRequest delete() {
         return new DeviceProfileDeleteRequest(this);
+    }
+
+    public DeviceAddRequest addDevice() {
+        return new DeviceAddRequest(this);
     }
 
     public PropertyAddRequest addProperty(String name, Property.Type type) {

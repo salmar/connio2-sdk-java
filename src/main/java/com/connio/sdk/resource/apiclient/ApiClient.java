@@ -2,8 +2,10 @@ package com.connio.sdk.resource.apiclient;
 
 import com.connio.sdk.auth.ApiKeyContext;
 import com.connio.sdk.auth.ApiKeyScope;
+import com.connio.sdk.request.account.AccountFetchRequest;
 import com.connio.sdk.request.apiclient.ApiClientAddRequest;
 import com.connio.sdk.request.apiclient.ApiClientDeleteRequest;
+import com.connio.sdk.request.apiclient.ApiClientFetchRequest;
 import com.connio.sdk.request.apiclient.ApiClientUpdateRequest;
 import com.connio.sdk.resource.Resource;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -77,6 +79,10 @@ public class ApiClient extends Resource<ApiClientUpdateRequest, ApiClientDeleteR
 
     public Optional<DateTime> getDateModified() {
         return Optional.ofNullable(dateModified);
+    }
+
+    public static ApiClientFetchRequest fetch(String apiClientId) {
+        return new ApiClientFetchRequest(apiClientId);
     }
 
     public static ApiClientAddRequest create(ApiKeyContext context, ImmutableSet<ApiKeyScope> scopes) {

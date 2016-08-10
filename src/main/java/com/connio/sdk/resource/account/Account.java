@@ -2,6 +2,7 @@ package com.connio.sdk.resource.account;
 
 import com.connio.sdk.request.account.AccountAddRequest;
 import com.connio.sdk.request.account.AccountDeleteRequest;
+import com.connio.sdk.request.account.AccountFetchRequest;
 import com.connio.sdk.request.account.AccountUpdateRequest;
 import com.connio.sdk.resource.Resource;
 import com.fasterxml.jackson.annotation.*;
@@ -12,7 +13,6 @@ import org.joda.time.DateTime;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -174,6 +174,10 @@ public class Account extends Resource<AccountUpdateRequest, AccountDeleteRequest
 
     public Optional<DateTime> getDateModified() {
         return Optional.ofNullable(dateModified);
+    }
+
+    public static AccountFetchRequest fetch(String accountId) {
+        return new AccountFetchRequest(accountId);
     }
 
     public static AccountAddRequest create(String name, Account.Type type) {

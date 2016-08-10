@@ -188,7 +188,7 @@ public class Device extends Resource<DeviceUpdateRequest, DeviceDeleteRequest> {
         return Optional.ofNullable(location);
     }
 
-    public static DeviceFetchRequest find(String deviceId) {
+    public static DeviceFetchRequest fetch(String deviceId) {
         return new DeviceFetchRequest(deviceId);
     }
 
