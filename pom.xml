@@ -145,6 +145,17 @@
 				</configuration>
 			</plugin>
 
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <coverage-output>html</coverage-output>
+                        <coverage-metrics>all</coverage-metrics>
+                        <coverage-classes>loaded</coverage-classes>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
 		</plugins>
 	</build>
 
