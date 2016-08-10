@@ -13,6 +13,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AlertUpdateRequest extends ResourceUpdateRequest<Alert> {
 
@@ -51,6 +53,9 @@ public class AlertUpdateRequest extends ResourceUpdateRequest<Alert> {
     public AlertUpdateRequest(String ownerId, String alertId) {
         this.ownerId = ownerId;
         this.alertId = alertId;
+
+        if (ownerId == null || (!ownerId.startsWith("_dpf_") && !ownerId.startsWith("_dev_")))
+            throw new IllegalArgumentException("Invalid ownerId");
     }
 
     public String getOwnerId() {
@@ -151,5 +156,29 @@ public class AlertUpdateRequest extends ResourceUpdateRequest<Alert> {
     @Override
     protected Alert parseEntity(Response response) {
         return response.readEntity(Alert.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AlertUpdateRequest that = (AlertUpdateRequest) o;
+        return Objects.equals(getOwnerId(), that.getOwnerId()) &&
+                Objects.equals(getAlertId(), that.getAlertId()) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getTriggerPropId(), that.getTriggerPropId()) &&
+                Objects.equals(getMetric(), that.getMetric()) &&
+                Objects.equals(getChecks(), that.getChecks()) &&
+                Objects.equals(getNotifications(), that.getNotifications()) &&
+                Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(getTags(), that.getTags()) &&
+                Objects.equals(getStatus(), that.getStatus()) &&
+                Objects.equals(getRecover(), that.getRecover());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOwnerId(), getAlertId(), getName(), getTriggerPropId(), getMetric(), getChecks(),
+                getNotifications(), getDescription(), getTags(), getStatus(), getRecover());
     }
 }

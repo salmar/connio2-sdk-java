@@ -63,25 +63,18 @@ public class WebhookNotification extends Notification {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        WebhookNotification other = (WebhookNotification) obj;
-        return  Objects.equals(this.name, other.name) &&
-                Objects.equals(this.getAction(), other.getAction()) &&
-                Objects.equals(this.message, other.message) &&
-                Objects.equals(this.method, other.method) &&
-                Objects.equals(this.url, other.url) &&
-                Objects.equals(this.signatureKey, other.signatureKey);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WebhookNotification that = (WebhookNotification) o;
+        return Objects.equals(getMethod(), that.getMethod()) &&
+                Objects.equals(getUrl(), that.getUrl()) &&
+                Objects.equals(getSignatureKey(), that.getSignatureKey());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, getAction(), message, method, url, signatureKey);
+        return Objects.hash(getMethod(), getUrl(), getSignatureKey());
     }
 
     @Override

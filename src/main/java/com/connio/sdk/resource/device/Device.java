@@ -1,5 +1,6 @@
 package com.connio.sdk.resource.device;
 
+import com.connio.sdk.request.alert.AlertAddRequest;
 import com.connio.sdk.request.alert.AlertRemoveIncidentRequest;
 import com.connio.sdk.request.data.DeviceStateFetchRequest;
 import com.connio.sdk.request.data.ReadDataRequest;
@@ -12,11 +13,14 @@ import com.connio.sdk.request.deviceprofile.DeviceProfileFetchRequest;
 import com.connio.sdk.resource.Location;
 import com.connio.sdk.resource.Resource;
 import com.connio.sdk.resource.alert.Alert;
+import com.connio.sdk.resource.alert.AlertCheck;
+import com.connio.sdk.resource.alert.Notification;
 import com.connio.sdk.resource.data.DataFeed;
 import com.connio.sdk.resource.method.Method;
 import com.connio.sdk.resource.property.Property;
 import com.fasterxml.jackson.annotation.*;
 import com.google.common.base.MoreObjects;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang3.text.WordUtils;
@@ -24,6 +28,7 @@ import org.joda.time.DateTime;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -157,12 +162,16 @@ public class Device extends Resource {
         return period;
     }
 
-    public String getNotes() {
-        return notes;
+    public ImmutableMap<CustomId, String> getCustomIds() {
+        return customIds;
     }
 
-    public String getTimezone() {
-        return timezone;
+    public Optional<String> getNotes() {
+        return Optional.ofNullable(notes);
+    }
+
+    public Optional<String> getTimezone() {
+        return Optional.ofNullable(timezone);
     }
 
     public boolean isAnnotateWithLoc() {
@@ -177,8 +186,8 @@ public class Device extends Resource {
         return tags;
     }
 
-    public Location getLocation() {
-        return location;
+    public Optional<Location> getLocation() {
+        return Optional.ofNullable(location);
     }
 
     public static DeviceFetchRequest find(String deviceId) {
@@ -215,6 +224,12 @@ public class Device extends Resource {
 
     public DeviceStateFetchRequest state() {
         return new DeviceStateFetchRequest(this);
+    }
+
+    public AlertAddRequest addAlert(String name, String triggerPropId, String metric, ImmutableList<AlertCheck> checks,
+                                    ImmutableList<Notification> notifications) {
+
+        return new AlertAddRequest(this, name, triggerPropId, metric, checks, notifications);
     }
 
     public AlertRemoveIncidentRequest removeIncident(Alert alert) {

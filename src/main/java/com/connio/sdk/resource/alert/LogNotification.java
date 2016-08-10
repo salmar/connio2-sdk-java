@@ -45,23 +45,16 @@ public class LogNotification extends Notification {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        LogNotification other = (LogNotification) obj;
-        return  Objects.equals(this.name, other.name) &&
-                Objects.equals(this.getAction(), other.getAction()) &&
-                Objects.equals(this.message, other.message) &&
-                Objects.equals(this.logLevel, other.logLevel);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LogNotification that = (LogNotification) o;
+        return Objects.equals(getLogLevel(), that.getLogLevel());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, getAction(), message, logLevel);
+        return Objects.hash(getLogLevel());
     }
 
     @Override

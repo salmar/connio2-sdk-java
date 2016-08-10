@@ -56,17 +56,13 @@ public class AlertCheck {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        AlertCheck other = (AlertCheck) obj;
-        return  Objects.equals(this.getSeverity(), other.getSeverity()) &&
-                Objects.equals(this.getExpression(), other.getExpression()) &&
-                Objects.equals(this.getHandlers(), other.getHandlers());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AlertCheck that = (AlertCheck) o;
+        return Objects.equals(getSeverity(), that.getSeverity()) &&
+                Objects.equals(getExpression(), that.getExpression()) &&
+                Objects.equals(getHandlers(), that.getHandlers());
     }
 
     @Override

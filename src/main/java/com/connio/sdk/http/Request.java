@@ -1,5 +1,7 @@
 package com.connio.sdk.http;
 
+import com.google.common.base.MoreObjects;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
@@ -57,19 +59,30 @@ public class Request {
         return body;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Request request = (Request) o;
-        return Objects.equals(method, request.method) && Objects.equals(path, request.path) &&
-                Objects.equals(queryParams, request.queryParams) && Objects.equals(body, request.body);
-
+        return Objects.equals(getMethod(), request.getMethod()) &&
+                Objects.equals(getPath(), request.getPath()) &&
+                Objects.equals(getQueryParams(), request.getQueryParams()) &&
+                Objects.equals(getBody(), request.getBody());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(method, path, queryParams, body);
+        return Objects.hash(getMethod(), getPath(), getQueryParams(), getBody());
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper("Request")
+                .add("method", method)
+                .add("path", path)
+                .add("queryParams", queryParams)
+                .add("body", body)
+                .toString();
     }
 }

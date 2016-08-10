@@ -64,25 +64,18 @@ public class MQTTNotification extends Notification {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        MQTTNotification other = (MQTTNotification) obj;
-        return  Objects.equals(this.name, other.name) &&
-                Objects.equals(this.getAction(), other.getAction()) &&
-                Objects.equals(this.message, other.message) &&
-                Objects.equals(this.url, other.url) &&
-                Objects.equals(this.topic, other.topic) &&
-                Objects.equals(this.credentials, other.credentials);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MQTTNotification that = (MQTTNotification) o;
+        return Objects.equals(getUrl(), that.getUrl()) &&
+                Objects.equals(getTopic(), that.getTopic()) &&
+                Objects.equals(getCredentials(), that.getCredentials());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, getAction(), message, url, topic, credentials);
+        return Objects.hash(getUrl(), getTopic(), getCredentials());
     }
 
     @Override

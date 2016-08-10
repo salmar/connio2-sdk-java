@@ -1,5 +1,6 @@
 package com.connio.sdk.resource.deviceprofile;
 
+import com.connio.sdk.request.alert.AlertAddRequest;
 import com.connio.sdk.request.device.DeviceAddRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileAddRequest;
 import com.connio.sdk.request.deviceprofile.DeviceProfileDeleteRequest;
@@ -7,6 +8,8 @@ import com.connio.sdk.request.deviceprofile.DeviceProfileUpdateRequest;
 import com.connio.sdk.request.method.MethodAddRequest;
 import com.connio.sdk.request.property.PropertyAddRequest;
 import com.connio.sdk.resource.Resource;
+import com.connio.sdk.resource.alert.AlertCheck;
+import com.connio.sdk.resource.alert.Notification;
 import com.connio.sdk.resource.method.Method;
 import com.connio.sdk.resource.method.MethodImpl;
 import com.connio.sdk.resource.property.Property;
@@ -14,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.joda.time.DateTime;
 
@@ -132,6 +136,12 @@ public class DeviceProfile extends Resource {
 
     public MethodAddRequest addMethod(String name, Method.Access access, MethodImpl implementation) {
         return new MethodAddRequest(this, name, access, implementation);
+    }
+
+    public AlertAddRequest addAlert(String name, String triggerPropId, String metric, ImmutableList<AlertCheck> checks,
+                                    ImmutableList<Notification> notifications) {
+
+        return new AlertAddRequest(this, name, triggerPropId, metric, checks, notifications);
     }
 
     @Override

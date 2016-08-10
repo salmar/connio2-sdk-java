@@ -46,18 +46,14 @@ public class AlertHandler {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        AlertHandler other = (AlertHandler) obj;
-        return  Objects.equals(this.key, other.key) &&
-                Objects.equals(this.notification, other.notification) &&
-                Objects.equals(this.next, other.next) &&
-                Objects.equals(this.timeout, other.timeout);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AlertHandler that = (AlertHandler) o;
+        return Objects.equals(getKey(), that.getKey()) &&
+                Objects.equals(getNotification(), that.getNotification()) &&
+                Objects.equals(getNext(), that.getNext()) &&
+                Objects.equals(getTimeout(), that.getTimeout());
     }
 
     @Override

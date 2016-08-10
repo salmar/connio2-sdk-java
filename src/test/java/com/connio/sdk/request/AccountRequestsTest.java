@@ -36,7 +36,7 @@ public class AccountRequestsTest {
     }
 
     @Test
-    public void testCreateRequest() throws Exception {
+    public void addRequestShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
             final AccountAddRequest addRequest = new AccountAddRequest("account", Account.Type.Full)
                     .setOrgImageUri("image")
@@ -46,7 +46,7 @@ public class AccountRequestsTest {
 
             final Request request = Request.post("accounts", addRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); result = response; times = 2;
+            httpClient.request(request); times = 2;
             httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
         }};
 
@@ -65,7 +65,7 @@ public class AccountRequestsTest {
     }
 
     @Test
-    public void testUpdateRequest() throws Exception {
+    public void updateRequestShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
             final AccountUpdateRequest updateRequest = new AccountUpdateRequest(account)
                     .setName("updated_name")
@@ -79,7 +79,7 @@ public class AccountRequestsTest {
             final String path = "accounts/" + account.getId();
             final Request request = Request.put(path, updateRequest);
             response.isSuccess(); result = true;
-            httpClient.request(request); result = response; times = 2;
+            httpClient.request(request); times = 2;
             httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
         }};
 
@@ -101,14 +101,12 @@ public class AccountRequestsTest {
     }
 
     @Test
-    public void testDeleteRequest() throws Exception {
+    public void deleteRequestShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final AccountDeleteRequest updateRequest = new AccountDeleteRequest(account);
-
             final String path = "accounts/" + account.getId();
             final Request request = Request.delete(path);
             response.isSuccess(); result = true;
-            httpClient.request(request); result = response; times = 2;
+            httpClient.request(request); times = 2;
             httpClient.requestAsync(request); result = CompletableFuture.supplyAsync(() -> response); times = 2;
         }};
 
