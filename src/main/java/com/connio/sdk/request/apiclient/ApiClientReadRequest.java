@@ -8,6 +8,9 @@ import com.connio.sdk.resource.apiclient.ApiClient;
 
 import javax.ws.rs.core.GenericType;
 
+/**
+ * Api client read request used to read api clients and specify pagination.
+ */
 public class ApiClientReadRequest extends ResourcePaginatedReadRequest<ApiClient> {
 
     @Override

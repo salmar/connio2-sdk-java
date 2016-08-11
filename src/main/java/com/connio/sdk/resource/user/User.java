@@ -164,19 +164,41 @@ public class User extends Resource<UserUpdateRequest, UserDeleteRequest> {
         return Optional.ofNullable(dateModified);
     }
 
+    /**
+     * Creates an UserFetchRequest to fetch a user given its id.
+     * @param userId of the user that wants to be fetched.
+     * @return UserFetchRequest.
+     */
     public static UserFetchRequest fetch(String userId) {
         return new UserFetchRequest(userId);
     }
 
+
+    /**
+     * Creates and initialises a UserInviteRequest with minimum data to invite a new user. Note that the returning
+     * UserInviteRequest can be completed with all desired information that the request permits before executing it.
+     * @param email
+     * @param fullName
+     * @return UserInviteRequest.
+     */
     public static UserInviteRequest invite(String email, String fullName) {
         return new UserInviteRequest(email, fullName);
     }
 
+    /**
+     * Return a UserUpdateRequest for the current user to be completed with the data that wants to be updated
+     * before executing the request.
+     * @return
+     */
     @Override
     public UserUpdateRequest update() {
         return new UserUpdateRequest(this);
     }
 
+    /**
+     * Return a UserDeleteRequest for the current user in order to delete it when executing.
+     * @return
+     */
     @Override
     public UserDeleteRequest delete() {
         return new UserDeleteRequest(id);

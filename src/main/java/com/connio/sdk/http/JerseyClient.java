@@ -5,15 +5,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import org.apache.commons.codec.net.URLCodec;
-import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.client.rx.Rx;
 import org.glassfish.jersey.client.rx.RxClient;
 import org.glassfish.jersey.client.rx.RxInvocationBuilder;
 import org.glassfish.jersey.client.rx.RxWebTarget;
 import org.glassfish.jersey.client.rx.java8.RxCompletionStageInvoker;
-import org.glassfish.jersey.filter.LoggingFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -137,7 +134,6 @@ public class JerseyClient implements HttpClient {
                 .hostnameVerifier((a, b) -> true)
                 .register(jsonProvider)
                 .register(auth)
-                //.register(new LoggingFilter())
                 .build();
     }
 

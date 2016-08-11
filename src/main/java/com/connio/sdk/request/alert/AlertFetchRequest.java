@@ -1,12 +1,15 @@
 package com.connio.sdk.request.alert;
 
-import com.connio.sdk.request.ResourceFetchRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
+import com.connio.sdk.request.ResourceFetchRequest;
 import com.connio.sdk.resource.alert.Alert;
 import com.connio.sdk.resource.device.Device;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 
+/**
+ * Alert fetch request used to fetch an alert.
+ */
 public class AlertFetchRequest extends ResourceFetchRequest<Alert> {
 
     private final String ownerId;

@@ -11,6 +11,9 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * Api client update request used to update an api client.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiClientUpdateRequest extends ResourceUpdateRequest<ApiClient> {
 

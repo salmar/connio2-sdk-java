@@ -4,6 +4,9 @@ import com.connio.sdk.request.ResourceDeleteRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 
+/**
+ * Device profile delete request used to delete device profiles.
+ */
 public class DeviceProfileDeleteRequest extends ResourceDeleteRequest {
 
     private final String id;

@@ -1,8 +1,8 @@
 package com.connio.sdk.request.method;
 
-import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
+import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.connio.sdk.resource.method.Method;
 import com.connio.sdk.resource.method.MethodImpl;
@@ -11,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Objects;
 
+/**
+ * Method create request used to create new methods.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MethodCreateRequest extends ResourceCreateRequest<Method> {
 

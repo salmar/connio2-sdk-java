@@ -12,6 +12,9 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * Device update request used to update a device.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeviceUpdateRequest extends ResourceUpdateRequest<Device> {
 

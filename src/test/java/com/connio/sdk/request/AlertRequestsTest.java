@@ -2,7 +2,7 @@ package com.connio.sdk.request;
 
 import com.connio.sdk.Connio;
 import com.connio.sdk.ConnioApiClient;
-import com.connio.sdk.ConnioApiClientImpl;
+import com.connio.sdk.DefaultConnioApiClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.request.alert.AlertCreateRequest;
@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
 public class AlertRequestsTest {
 
     @Mocked
-    private ConnioApiClientImpl connioApiClient;
+    private DefaultConnioApiClient connioApiClient;
 
     @Mocked
     private Response response;
@@ -73,7 +73,7 @@ public class AlertRequestsTest {
             connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 4;
         }};
 
-        final ConnioApiClient apiClient = new ConnioApiClientImpl("key", "secret");
+        final ConnioApiClient apiClient = new DefaultConnioApiClient("key", "secret");
 
         final AlertCreateRequest request = Alert.create(dp, alertDeviceProfile.getName(), alertDeviceProfile.getTriggerPropId(),
                 alertDeviceProfile.getMetric(), alertDeviceProfile.getChecks(), alertDeviceProfile.getNotifications())

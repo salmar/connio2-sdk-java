@@ -6,6 +6,10 @@ import com.google.common.base.MoreObjects;
 
 import java.util.List;
 
+/**
+ * Parametrized DTO for resources read operation that provides sequential access pagination results.
+ * @param <T>
+ */
 public class SequentialAccessResultPage<T> {
 
     private final Long total;

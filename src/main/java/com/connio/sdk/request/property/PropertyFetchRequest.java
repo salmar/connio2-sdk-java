@@ -6,6 +6,9 @@ import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.connio.sdk.resource.property.Property;
 
+/**
+ * Property fetch request used to fetch a property.
+ */
 public class PropertyFetchRequest extends ResourceFetchRequest<Property> {
 
     private final String deviceProfileId;

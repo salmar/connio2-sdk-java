@@ -9,6 +9,9 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * User invite request used to invite / create a new user.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInviteRequest extends ApiRequest<String> {
 

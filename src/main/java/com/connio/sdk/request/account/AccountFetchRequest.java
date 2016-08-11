@@ -1,10 +1,13 @@
 package com.connio.sdk.request.account;
 
-import com.connio.sdk.request.ResourceFetchRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
+import com.connio.sdk.request.ResourceFetchRequest;
 import com.connio.sdk.resource.account.Account;
 
+/**
+ * Account fetch request used to fetch an account.
+ */
 public class AccountFetchRequest extends ResourceFetchRequest<Account> {
 
     private final String id;

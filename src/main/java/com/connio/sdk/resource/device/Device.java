@@ -28,6 +28,9 @@ import org.joda.time.DateTime;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Device resource
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Device extends Resource<DeviceUpdateRequest, DeviceDeleteRequest> {
@@ -188,58 +191,131 @@ public class Device extends Resource<DeviceUpdateRequest, DeviceDeleteRequest> {
         return Optional.ofNullable(location);
     }
 
+    /**
+     * Creates an AccountFetchRequest to fetch an account given its id.
+     * @param deviceId of the device that wants to be fetched.
+     * @return DeviceFetchRequest.
+     */
     public static DeviceFetchRequest fetch(String deviceId) {
         return new DeviceFetchRequest(deviceId);
     }
 
+    /**
+     * Creates and initialises a DeviceCreateRequest with minimum data to create a new device. Note that the returning
+     * DeviceCreateRequest can be completed with all desired information that the request permits before executing it.
+     * @param deviceProfile
+     * @return DeviceCreateRequest
+     */
     public static DeviceCreateRequest create(DeviceProfile deviceProfile) {
         return new DeviceCreateRequest(deviceProfile);
     }
 
+    /**
+     * Return a DeviceUpdateRequest for the current device to be completed with the data that wants to be updated
+     * before executing the request.
+     * @return DeviceUpdateRequest.
+     */
     @Override
     public DeviceUpdateRequest update() {
         return new DeviceUpdateRequest(this);
     }
 
+    /**
+     * Return a DeviceDeleteRequest for the current device in order to delete it when executing.
+     * @return DeviceDeleteRequest.
+     */
     @Override
     public DeviceDeleteRequest delete() {
         return new DeviceDeleteRequest(id);
     }
 
+    /**
+     * Returns a DeviceProfileFetchRequest pointing to the device's device profile ready to be fetched / executed.
+     * @return DeviceProfileFetchRequest.
+     */
     public DeviceProfileFetchRequest deviceProfile() {
         return new DeviceProfileFetchRequest(this.getDeviceProfileId());
     }
 
+    /**
+     * Returns a ReadDataRequest to read current device specified property data. ReadDataRequest can be completed to add
+     * pagination or filter parameters in order to query the desired data set.
+     * @param property from which the data will be read.
+     * @return ReadDataRequest
+     */
     public ReadDataRequest readData(Property property) {
         return new ReadDataRequest(this, property);
     }
 
+    /**
+     * Returns a WriteDataFeedRequest to write current device specified property data when executed.
+     * @param property where the data is going to be written.
+     * @param dataFeed that will be written.
+     * @return WriteDataFeedRequest
+     */
     public WriteDataFeedRequest writeData(Property property, DataFeed dataFeed) {
         return new WriteDataFeedRequest(this, property, dataFeed);
     }
 
+    /**
+     * Returns a WriteDataFeedRequest to write current device properties that will be specified in the dataFeed object.
+     * @param dataFeed that will be written.
+     * @return WriteDataFeedRequest.
+     */
     public WriteDataFeedRequest writeData(DataFeed dataFeed) {
         return new WriteDataFeedRequest(this, dataFeed);
     }
 
+    /**
+     * Returns ReadPublicMethodRequest to read a current device public method getter when executed.
+     * @param method that wants to be read.
+     * @return ReadPublicMethodRequest
+     */
     public ReadPublicMethodRequest readMethod(Method method) {
         return new ReadPublicMethodRequest(this, method);
     }
 
+    /**
+     * Returns ReadPublicMethodRequest to execute a current device public method. Note that in case it is needed to
+     * specify a parameter it can be done by completing the request before executing it.
+     * @param method that wants to be executed.
+     * @return ExecutePublicMethodRequest.
+     */
     public ExecutePublicMethodRequest executeMethod(Method method) {
         return new ExecutePublicMethodRequest(this, method);
     }
 
+    /**
+     * Returns DeviceStateFetchRequest to read the current device state when fetching / executing it. Note that the
+     * request can be further completed to include representation parameters before executing it.
+     * @return DeviceStateFetchRequest.
+     */
     public DeviceStateFetchRequest state() {
         return new DeviceStateFetchRequest(this);
     }
 
+    /**
+     * Creates and initialises a AlertCreateRequest with minimum data to create a new alert belonging to the current device.
+     * Note that the returning AlertCreateRequest can be completed with all desired information that the request permits
+     * before executing it.
+     * @param name
+     * @param triggerPropId
+     * @param metric
+     * @param checks
+     * @param notifications
+     * @return AlertCreateRequest.
+     */
     public AlertCreateRequest addAlert(String name, String triggerPropId, String metric, ImmutableList<AlertCheck> checks,
                                     ImmutableList<Notification> notifications) {
 
         return new AlertCreateRequest(this, name, triggerPropId, metric, checks, notifications);
     }
 
+    /**
+     * Returns a AlertRemoveIncidentRequest to remove an incident on the given alert of the current device when executing.
+     * @param alert the incident wants to be removed.
+     * @return AlertRemoveIncidentRequest
+     */
     public AlertRemoveIncidentRequest removeIncident(Alert alert) {
         return new AlertRemoveIncidentRequest(this, alert);
     }

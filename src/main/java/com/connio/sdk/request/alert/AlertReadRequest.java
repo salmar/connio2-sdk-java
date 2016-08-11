@@ -10,6 +10,9 @@ import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import javax.ws.rs.core.GenericType;
 import java.util.List;
 
+/**
+ * Alert read request used to read alerts.
+ */
 public class AlertReadRequest extends ResourceReadRequest<Alert> {
 
     private final String ownerId;

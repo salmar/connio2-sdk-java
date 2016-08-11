@@ -5,6 +5,9 @@ import com.connio.sdk.http.Request;
 import com.connio.sdk.resource.device.Device;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 
+/**
+ * Alert delete request used to delete alerts.
+ */
 public class AlertDeleteRequest extends ResourceDeleteRequest {
 
     private final String ownerId;

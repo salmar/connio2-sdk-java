@@ -10,6 +10,9 @@ import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import javax.ws.rs.core.GenericType;
 import java.util.List;
 
+/**
+ * Method read request used to read methods.
+ */
 public class MethodReadRequest extends ResourceReadRequest<Alert> {
 
     private final String ownerId;

@@ -1,9 +1,7 @@
 package com.connio.sdk.request;
 
 import com.connio.sdk.Connio;
-import com.connio.sdk.ConnioApiClient;
-import com.connio.sdk.ConnioApiClientImpl;
-import com.connio.sdk.http.JerseyClient;
+import com.connio.sdk.DefaultConnioApiClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.request.user.UserDeleteRequest;
@@ -23,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 public class UserClientRequestsTest {
 
     @Mocked
-    private ConnioApiClientImpl connioApiClient;
+    private DefaultConnioApiClient connioApiClient;
 
     @Mocked
     private Response response;

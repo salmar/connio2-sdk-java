@@ -3,6 +3,9 @@ package com.connio.sdk.response;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Connio generic entity response when deleting resources.
+ */
 public class DeletedResponse {
 
     private final String deleted;

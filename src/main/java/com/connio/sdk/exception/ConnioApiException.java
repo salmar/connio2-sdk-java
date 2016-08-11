@@ -3,6 +3,9 @@ package com.connio.sdk.exception;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * General API exception returned from the server with specific information about the error cause.
+ */
 public class ConnioApiException extends ConnioException {
 
     private final Integer errorCode;

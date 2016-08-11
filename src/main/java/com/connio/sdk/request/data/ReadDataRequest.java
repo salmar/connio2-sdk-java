@@ -13,6 +13,10 @@ import javax.ws.rs.core.GenericType;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Read device property data request used read device properties historical data. Pagination parameters and query
+ * filters can be set in order to filter the data set.
+ */
 public class ReadDataRequest extends ApiRequest<SequentialAccessResultPage<DataValue>> {
 
     private final String deviceId;

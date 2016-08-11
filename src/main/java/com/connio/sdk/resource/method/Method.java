@@ -147,15 +147,34 @@ public class Method extends Resource<MethodUpdateRequest, MethodDeleteRequest> {
         return Optional.ofNullable(dateModified);
     }
 
+
+    /**
+     * Creates and initialises a MethodCreateRequest with minimum data to create a new method. Note that the returning
+     * MethodCreateRequest can be completed with all desired information that the request permits before executing it.
+     * @param deviceProfile
+     * @param name
+     * @param access
+     * @param impl
+     * @return
+     */
     public static MethodCreateRequest create(DeviceProfile deviceProfile, String name, Access access, MethodImpl impl) {
         return new MethodCreateRequest(deviceProfile, name, access, impl);
     }
 
+    /**
+     * Return a MethodUpdateRequest for the current method to be completed with the data that wants to be updated
+     * before executing the request.
+     * @return
+     */
     @Override
     public MethodUpdateRequest update() {
         return new MethodUpdateRequest(ownerId, id);
     }
 
+    /**
+     * Return a MethodDeleteRequest for the current method in order to delete it when executing.
+     * @return
+     */
     @Override
     public MethodDeleteRequest delete() {
         return new MethodDeleteRequest(ownerId, id);

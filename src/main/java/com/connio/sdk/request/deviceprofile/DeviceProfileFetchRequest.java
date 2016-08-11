@@ -5,6 +5,9 @@ import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 
+/**
+ * Device profile fetch request used to fetch a device profile.
+ */
 public class DeviceProfileFetchRequest extends ResourceFetchRequest<DeviceProfile> {
 
     private final String id;

@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/**
+ * Parametrized DTO for resources read operation that provides random access pagination results.
+ * @param <T>
+ */
 public class RandomAccessResultPage<T> {
 
     private final Long total;

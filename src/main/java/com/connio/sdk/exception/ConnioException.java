@@ -1,5 +1,8 @@
 package com.connio.sdk.exception;
 
+/**
+ * Base abstract class for sdk exceptions.
+ */
 public abstract class ConnioException extends RuntimeException {
 
     public ConnioException(final String message) {

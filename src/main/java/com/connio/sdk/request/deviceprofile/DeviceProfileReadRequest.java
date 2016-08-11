@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Device profile read request used to read device profiles and specify pagination.
+ */
 public class DeviceProfileReadRequest extends ResourcePaginatedReadRequest<DeviceProfile> {
 
     private String base;

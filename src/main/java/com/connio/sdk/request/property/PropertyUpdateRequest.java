@@ -12,6 +12,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Objects;
 
+/**
+ * Property update request used to update a property.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PropertyUpdateRequest extends ResourceUpdateRequest<Property> {
 

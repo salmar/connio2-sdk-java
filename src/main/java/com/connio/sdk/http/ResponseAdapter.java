@@ -2,6 +2,9 @@ package com.connio.sdk.http;
 
 import javax.ws.rs.core.GenericType;
 
+/**
+ * Adapter over {@link javax.ws.rs.core.Response} to simplify it and implement domain Response interface.
+ */
 public class ResponseAdapter implements Response {
 
     private final javax.ws.rs.core.Response response;

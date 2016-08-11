@@ -6,6 +6,9 @@ import com.connio.sdk.request.ApiRequest;
 import com.connio.sdk.resource.alert.Alert;
 import com.connio.sdk.resource.device.Device;
 
+/**
+ * Alert incident remove account. It is used to acknowledge alert notification and stop with notification lifecycle.
+ */
 public class AlertRemoveIncidentRequest extends ApiRequest<Void> {
 
     private final Device device;

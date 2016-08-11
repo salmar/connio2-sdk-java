@@ -4,6 +4,9 @@ import com.connio.sdk.request.ResourceDeleteRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.resource.apiclient.ApiClient;
 
+/**
+ * Api client delete request used to delete api clients.
+ */
 public class ApiClientDeleteRequest extends ResourceDeleteRequest {
 
     private final ApiClient apiClient;

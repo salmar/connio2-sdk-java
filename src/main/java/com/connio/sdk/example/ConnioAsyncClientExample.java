@@ -14,6 +14,9 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Code sample of asynchronous API using implicit Connio client.
+ */
 public class ConnioAsyncClientExample {
 
 	public static void main(String[] args) {

@@ -13,6 +13,9 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * Device create request used to create new devices.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeviceCreateRequest extends ResourceCreateRequest<Device> {
 

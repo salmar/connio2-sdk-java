@@ -1,27 +1,29 @@
 package com.connio.sdk.example;
 
-import com.connio.sdk.Connio;
-import com.connio.sdk.ConnioApiClient;
-import com.connio.sdk.ConnioApiClientImpl;
+import com.connio.sdk.DefaultConnioApiClient;
 import com.connio.sdk.SequentialAccessResultPage;
-import com.connio.sdk.resource.data.*;
+import com.connio.sdk.resource.data.DataFeed;
+import com.connio.sdk.resource.data.DataPoint;
+import com.connio.sdk.resource.data.DataValue;
+import com.connio.sdk.resource.data.DeviceState;
 import com.connio.sdk.resource.device.Device;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.connio.sdk.resource.method.Method;
 import com.connio.sdk.resource.method.MethodImpl;
 import com.connio.sdk.resource.property.Property;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
-import java.util.Set;
 
+/**
+ * Code sample of synchronous API using explicit Connio client.
+ */
 public class ConnioSyncNoSingletonClientExample {
 
 	public static void main(String[] args) {
 		try {
 
             // Create an istance of the ConnioApiClient
-            ConnioApiClientImpl apiClient = new ConnioApiClientImpl("_key_671901158138828071", "31acec81b2414b03acf3d8c37ebdf305");
+            DefaultConnioApiClient apiClient = new DefaultConnioApiClient("_key_671901158138828071", "31acec81b2414b03acf3d8c37ebdf305");
 
             // Create device profile add request and execute device profile creation
             final DeviceProfile deviceProfile = DeviceProfile.create("device_profile_sdk").execute(apiClient);

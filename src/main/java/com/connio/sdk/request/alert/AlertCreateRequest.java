@@ -16,6 +16,9 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * Alert create request used to create new alerts.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AlertCreateRequest extends ResourceCreateRequest<Alert> {
 

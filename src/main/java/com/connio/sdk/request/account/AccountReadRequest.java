@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Account read request used to read accounts and specify pagination.
+ */
 public class AccountReadRequest extends ResourcePaginatedReadRequest<Account> {
 
     private String email;

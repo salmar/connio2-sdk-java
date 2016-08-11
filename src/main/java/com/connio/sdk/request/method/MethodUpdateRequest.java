@@ -11,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Objects;
 
+/**
+ * Method update request used to update a method.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MethodUpdateRequest extends ResourceUpdateRequest<Method> {
 

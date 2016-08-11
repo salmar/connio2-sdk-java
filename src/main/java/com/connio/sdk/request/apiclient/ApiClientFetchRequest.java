@@ -5,6 +5,9 @@ import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.apiclient.ApiClient;
 
+/**
+ * Api client fetch request used to fetch an api client.
+ */
 public class ApiClientFetchRequest extends ResourceFetchRequest<ApiClient> {
 
     private final String id;

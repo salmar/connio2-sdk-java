@@ -6,6 +6,9 @@ import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.device.Device;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Device fetch request used to fetch a device.
+ */
 public class DeviceFetchRequest extends ResourceFetchRequest<Device> {
 
     private final String deviceId;

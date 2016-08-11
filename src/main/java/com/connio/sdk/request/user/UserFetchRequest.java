@@ -1,10 +1,13 @@
 package com.connio.sdk.request.user;
 
-import com.connio.sdk.request.ResourceFetchRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
+import com.connio.sdk.request.ResourceFetchRequest;
 import com.connio.sdk.resource.user.User;
 
+/**
+ * User fetch request used to fetch a user.
+ */
 public class UserFetchRequest extends ResourceFetchRequest<User> {
 
     private final String id;

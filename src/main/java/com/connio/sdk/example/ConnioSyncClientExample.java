@@ -11,10 +11,12 @@ import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.connio.sdk.resource.method.Method;
 import com.connio.sdk.resource.method.MethodImpl;
 import com.connio.sdk.resource.property.Property;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
 
+/**
+ * Code sample of synchronous API using implicit Connio client.
+ */
 public class ConnioSyncClientExample {
 
 	public static void main(String[] args) {

@@ -5,7 +5,9 @@ import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.connio.sdk.resource.method.Method;
-
+/**
+ * Method fetch request used to fetch a method.
+ */
 public class MethodFetchRequest extends ResourceFetchRequest<Method> {
 
     private final String deviceProfileId;

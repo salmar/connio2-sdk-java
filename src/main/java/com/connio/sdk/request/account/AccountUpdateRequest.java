@@ -1,14 +1,17 @@
 package com.connio.sdk.request.account;
 
-import com.connio.sdk.request.ResourceUpdateRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
+import com.connio.sdk.request.ResourceUpdateRequest;
 import com.connio.sdk.resource.account.Account;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * Account update request used to update an account.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountUpdateRequest extends ResourceUpdateRequest<Account> {
 
@@ -123,7 +126,8 @@ public class AccountUpdateRequest extends ResourceUpdateRequest<Account> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(account, getName(), getStatus(), getType(), getOrgName(), getOrgWebsite(), getOrgImageUri(), getTags());
+        return Objects.hash(account, getName(), getStatus(), getType(), getOrgName(), getOrgWebsite(),
+                getOrgImageUri(), getTags());
     }
 }
 

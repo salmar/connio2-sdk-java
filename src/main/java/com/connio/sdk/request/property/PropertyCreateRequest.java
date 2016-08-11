@@ -1,8 +1,8 @@
 package com.connio.sdk.request.property;
 
-import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
+import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.connio.sdk.resource.property.Boundaries;
 import com.connio.sdk.resource.property.Measurement;
@@ -12,6 +12,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Objects;
 
+/**
+ * Property create request used to create new properties.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PropertyCreateRequest extends ResourceCreateRequest<Property> {
 

@@ -1,11 +1,14 @@
 package com.connio.sdk.request.account;
 
-import com.connio.sdk.request.ResourceDeleteRequest;
 import com.connio.sdk.http.Request;
+import com.connio.sdk.request.ResourceDeleteRequest;
 import com.connio.sdk.resource.account.Account;
 
 import java.util.Objects;
 
+/**
+ * Account delete request used to delete accounts.
+ */
 public class AccountDeleteRequest extends ResourceDeleteRequest {
 
     private final Account account;

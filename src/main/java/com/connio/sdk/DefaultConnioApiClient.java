@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ConnioApiClientImpl implements ConnioApiClient {
+public class DefaultConnioApiClient implements ConnioApiClient {
 
     private final HttpClient httpClient;
 
@@ -18,22 +18,22 @@ public class ConnioApiClientImpl implements ConnioApiClient {
     private boolean dedicatedExecutor = false;
 
     
-    public ConnioApiClientImpl(String key, String secret) throws Exception {
+    public DefaultConnioApiClient(String key, String secret) throws Exception {
         this(key, secret, Executors.newCachedThreadPool());
         this.dedicatedExecutor = true;
     }
 
-    public ConnioApiClientImpl(String key, String secret, ExecutorService executorService) throws Exception {
+    public DefaultConnioApiClient(String key, String secret, ExecutorService executorService) throws Exception {
         this(new JerseyClient(key, secret, "https://api.connio.com/v2", executorService));
         this.executorService = executorService;
     }
 
-    public ConnioApiClientImpl(String key, String secret, String endpoint, ExecutorService executorService) throws Exception {
+    public DefaultConnioApiClient(String key, String secret, String endpoint, ExecutorService executorService) throws Exception {
         this(new JerseyClient(key, secret, endpoint, executorService));
         this.executorService = executorService;
     }
 
-    public ConnioApiClientImpl(HttpClient httpClient) throws Exception {
+    public DefaultConnioApiClient(HttpClient httpClient) throws Exception {
         this.httpClient = httpClient;
     }
 

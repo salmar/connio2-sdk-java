@@ -1,4 +1,4 @@
-package com.connio.sdk.resource.data;
+package com.connio.sdk.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,6 +6,9 @@ import com.google.common.base.MoreObjects;
 
 import java.util.Objects;
 
+/**
+ * Connio generic entity response when returning method results.
+ */
 public class MethodResult {
 
     private final Object result;

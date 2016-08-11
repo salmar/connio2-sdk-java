@@ -10,6 +10,9 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * Device profile create request used to create new device profiles.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeviceProfileCreateRequest extends ResourceCreateRequest<DeviceProfile> {
 

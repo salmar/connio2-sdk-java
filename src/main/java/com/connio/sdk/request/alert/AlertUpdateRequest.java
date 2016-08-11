@@ -15,6 +15,9 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * Alert update request used to update an alert.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AlertUpdateRequest extends ResourceUpdateRequest<Alert> {
 

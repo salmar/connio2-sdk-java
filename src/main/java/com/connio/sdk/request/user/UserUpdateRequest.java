@@ -10,6 +10,9 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * User update request used to update a user.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserUpdateRequest extends ResourceUpdateRequest<User> {
 

@@ -14,6 +14,9 @@ import org.joda.time.DateTime;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Account resource
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Account extends Resource<AccountUpdateRequest, AccountDeleteRequest> {
@@ -176,19 +179,40 @@ public class Account extends Resource<AccountUpdateRequest, AccountDeleteRequest
         return Optional.ofNullable(dateModified);
     }
 
+    /**
+     * Creates an AccountFetchRequest to fetch an account given its id.
+     * @param accountId of the account that wants to be fetched.
+     * @return AccountFetchRequest to be executed.
+     */
     public static AccountFetchRequest fetch(String accountId) {
         return new AccountFetchRequest(accountId);
     }
 
+    /**
+     * Creates and initialises a AccountCreateRequest with minimum data to create a new account. Note that the returning
+     * AccountCreateRequest can be completed with all desired information that the request permits before executing it.
+     * @param name account name
+     * @param type account type
+     * @return AccountCreateRequest be executed or completed with more data that the request permits before executing it.
+     */
     public static AccountCreateRequest create(String name, Account.Type type) {
         return new AccountCreateRequest(name, type);
     }
 
+    /**
+     * Return a AccountUpdateRequest for the current account to be completed with the data that wants to be updated
+     * before executing the request.
+     * @return AccountUpdateRequest
+     */
     @Override
     public AccountUpdateRequest update() {
         return new AccountUpdateRequest(this);
     }
 
+    /**
+     * Return a AccountDeleteRequest for the current account in order to delete it when executing.
+     * @return AccountDeleteRequest
+     */
     @Override
     public AccountDeleteRequest delete() {
         return new AccountDeleteRequest(this);

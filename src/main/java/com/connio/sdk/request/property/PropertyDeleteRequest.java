@@ -4,6 +4,9 @@ import com.connio.sdk.request.ResourceDeleteRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 
+/**
+ * Property delete request used to delete properties.
+ */
 public class PropertyDeleteRequest extends ResourceDeleteRequest {
 
     private final String ownerId;

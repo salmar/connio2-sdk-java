@@ -119,32 +119,81 @@ public class DeviceProfile extends Resource {
         return new DeviceProfileFetchRequest(deviceProfileId);
     }
 
+    /**
+     * Creates a DeviceProfileCreateRequest with minimum data to create a new device profile. Note that the returning
+     * DeviceProfileCreateRequest can be completed with all desired information that the request permits before executing it.
+     * @param name
+     * @return DeviceProfileCreateRequest.
+     */
     public static DeviceProfileCreateRequest create(String name) {
         return new DeviceProfileCreateRequest(name);
     }
 
+    /**
+     * Return a DeviceProfileUpdateRequest for the current device profile to be completed with the data that wants to
+     * be updated before executing the request.
+     * @return DeviceProfileUpdateRequest.
+     */
     @Override
     public DeviceProfileUpdateRequest update() {
         return new DeviceProfileUpdateRequest(this);
     }
 
+    /**
+     * Return a DeviceProfileDeleteRequest for the current device profile in order to delete it when executing.
+     * @return
+     */
     @Override
     public DeviceProfileDeleteRequest delete() {
         return new DeviceProfileDeleteRequest(this);
     }
 
+    /**
+     * Creates and initialises a DeviceCreateRequest with minimum data to create a new device with the current
+     * device profile. Note that the returning DeviceCreateRequest can be completed with all desired information that
+     * the request permits before executing it.
+     * @return DeviceCreateRequest.
+     */
     public DeviceCreateRequest addDevice() {
         return new DeviceCreateRequest(this);
     }
 
+    /**
+     * Creates and initialises a PropertyCreateRequest with minimum data to create a new property belonging to the
+     * current device profile. Note that the returning PropertyCreateRequest can be completed with all desired information that
+     * the request permits before executing it.
+     * @param name
+     * @param type
+     * @return
+     */
     public PropertyCreateRequest addProperty(String name, Property.Type type) {
         return new PropertyCreateRequest(this, name, type);
     }
 
+    /**
+     * Creates and initialises a MethodCreateRequest with minimum data to create a new method belonging to the
+     * current device profile. Note that the returning MethodCreateRequest can be completed with all desired information that
+     * the request permits before executing it.
+     * @param name
+     * @param access
+     * @param implementation
+     * @return
+     */
     public MethodCreateRequest addMethod(String name, Method.Access access, MethodImpl implementation) {
         return new MethodCreateRequest(this, name, access, implementation);
     }
 
+    /**
+     * Creates and initialises a AlertCreateRequest with minimum data to create a new method belonging to the
+     * current device profile. Note that the returning AlertCreateRequest can be completed with all desired information that
+     * the request permits before executing it.
+     * @param name
+     * @param triggerPropId
+     * @param metric
+     * @param checks
+     * @param notifications
+     * @return
+     */
     public AlertCreateRequest addAlert(String name, String triggerPropId, String metric, ImmutableList<AlertCheck> checks,
                                     ImmutableList<Notification> notifications) {
 

@@ -175,15 +175,32 @@ public class Property extends Resource<PropertyUpdateRequest, PropertyDeleteRequ
         return Optional.ofNullable(dateModified);
     }
 
+    /**
+     * Creates and initialises a PropertyCreateRequest with minimum data to create a new property. Note that the returning
+     * PropertyCreateRequest can be completed with all desired information that the request permits before executing it.
+     * @param deviceProfile
+     * @param name
+     * @param type
+     * @return
+     */
     public static PropertyCreateRequest create(DeviceProfile deviceProfile, String name, Type type) {
         return new PropertyCreateRequest(deviceProfile, name, type);
     }
 
+    /**
+     * Return a PropertyUpdateRequest for the current property to be completed with the data that wants to be updated
+     * before executing the request.
+     * @return PropertyUpdateRequest
+     */
     @Override
     public PropertyUpdateRequest update() {
         return new PropertyUpdateRequest(ownerId, id);
     }
 
+    /**
+     * Return a PropertyDeleteRequest for the current property in order to delete it when executing.
+     * @return PropertyDeleteRequest
+     */
     @Override
     public PropertyDeleteRequest delete() {
         return new PropertyDeleteRequest(ownerId, id);

@@ -4,6 +4,9 @@ import com.connio.sdk.request.ResourceDeleteRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 
+/**
+ * Method delete request used to delete methods.
+ */
 public class MethodDeleteRequest extends ResourceDeleteRequest {
 
     private final String ownerId;

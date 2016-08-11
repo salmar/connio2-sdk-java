@@ -16,6 +16,9 @@ import org.joda.time.DateTime;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Alert resource
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Alert extends Resource<AlertUpdateRequest, AlertDeleteRequest> {
@@ -165,23 +168,54 @@ public class Alert extends Resource<AlertUpdateRequest, AlertDeleteRequest> {
         return Optional.ofNullable(dateModified);
     }
 
+    /**
+     * Creates and initialises a AlertCreateRequest with minimum data to create a new alert. Note that the returning
+     * AlertCreateRequest can be completed with all desired information that the request permits before executing it.
+     * @param deviceProfile that the alert will belong to.
+     * @param name
+     * @param triggerPropId
+     * @param metric
+     * @param checks
+     * @param notifications
+     * @return AlertCreateRequest.
+     */
     public static AlertCreateRequest create(DeviceProfile deviceProfile, String name, String triggerPropId, String metric,
                                   ImmutableList<AlertCheck> checks, ImmutableList<Notification> notifications) {
 
         return new AlertCreateRequest(deviceProfile, name, triggerPropId, metric, checks, notifications);
     }
 
+    /**
+     * Creates and initialises a AlertCreateRequest with minimum data to create a new alert. Note that the returning
+     * AlertCreateRequest can be completed with all desired information that the request permits before executing it.
+     * @param device that the alert will belong to.
+     * @param name
+     * @param triggerPropId
+     * @param metric
+     * @param checks
+     * @param notifications
+     * @return AlertCreateRequest.
+     */
     public static AlertCreateRequest create(Device device, String name, String triggerPropId, String metric,
                                   ImmutableList<AlertCheck> checks, ImmutableList<Notification> notifications) {
 
         return new AlertCreateRequest(device, name, triggerPropId, metric, checks, notifications);
     }
 
+    /**
+     * Return a AlertUpdateRequest for the current alert to be completed with the data that wants to be updated
+     * before executing the request.
+     * @return AlertUpdateRequest.
+     */
     @Override
     public AlertUpdateRequest update() {
         return new AlertUpdateRequest(ownerId, id);
     }
 
+    /**
+     * Return a AlertDeleteRequest for the current alert in order to delete it when executing.
+     * @return AlertDeleteRequest
+     */
     @Override
     public AlertDeleteRequest delete() {
         return new AlertDeleteRequest(ownerId, id);

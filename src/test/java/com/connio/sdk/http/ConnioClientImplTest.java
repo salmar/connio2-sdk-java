@@ -1,7 +1,7 @@
 package com.connio.sdk.http;
 
 import com.connio.sdk.ConnioApiClient;
-import com.connio.sdk.ConnioApiClientImpl;
+import com.connio.sdk.DefaultConnioApiClient;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -32,7 +32,7 @@ public class ConnioClientImplTest {
     @Before
     public void start() throws Exception {
         server = new StubServer(8080).run();
-        connioApiClient = new ConnioApiClientImpl("key", "password", "http://localhost:8080/v2", Executors.newCachedThreadPool());
+        connioApiClient = new DefaultConnioApiClient("key", "password", "http://localhost:8080/v2", Executors.newCachedThreadPool());
     }
 
     @After

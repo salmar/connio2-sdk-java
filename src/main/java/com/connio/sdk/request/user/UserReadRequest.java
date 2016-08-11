@@ -11,6 +11,9 @@ import javax.ws.rs.core.GenericType;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Alert read request used to read alerts and specify pagination.
+ */
 public class UserReadRequest extends ResourcePaginatedReadRequest<Account> {
 
     private String email;

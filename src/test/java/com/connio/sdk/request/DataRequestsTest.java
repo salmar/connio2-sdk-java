@@ -1,15 +1,13 @@
 package com.connio.sdk.request;
 
 import com.connio.sdk.Connio;
-import com.connio.sdk.ConnioApiClient;
-import com.connio.sdk.ConnioApiClientImpl;
-import com.connio.sdk.http.JerseyClient;
+import com.connio.sdk.DefaultConnioApiClient;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.request.data.*;
 import com.connio.sdk.resource.data.DataFeed;
 import com.connio.sdk.resource.data.DataPoint;
-import com.connio.sdk.resource.data.MethodResult;
+import com.connio.sdk.response.MethodResult;
 import com.connio.sdk.resource.device.Device;
 import com.connio.sdk.resource.deviceprofile.DeviceProfile;
 import com.connio.sdk.resource.method.Method;
@@ -30,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
 public class DataRequestsTest {
 
     @Mocked
-    private ConnioApiClientImpl connioApiClient;
+    private DefaultConnioApiClient connioApiClient;
 
     @Mocked
     private Response response;

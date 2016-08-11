@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Property read request used to read properties.
+ */
 public class PropertyReadRequest extends ResourceReadRequest<Property> {
 
     private final String ownerId;

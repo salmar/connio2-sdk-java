@@ -9,6 +9,9 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * Device profile update request used to update a device profile.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeviceProfileUpdateRequest extends ResourceUpdateRequest<DeviceProfile> {
 

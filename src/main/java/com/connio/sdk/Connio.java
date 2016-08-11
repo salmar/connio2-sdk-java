@@ -4,6 +4,10 @@ import com.connio.sdk.exception.AuthenticationException;
 
 import java.util.concurrent.ExecutorService;
 
+/**
+ * Pseudo singleton used to execute requests without having to pass a connio api client explicitly as they will retrieve
+ * it from this class. Ideally it should be initialized during application bootstrap before executing any request.
+ */
 public class Connio {
 
     private static String username;
@@ -13,11 +17,22 @@ public class Connio {
 
     private Connio() {}
 
+    /**
+     * Initializes the connio api client with given credentials.
+     * @param username
+     * @param password
+     */
     public static synchronized void init(String username, String password) {
         Connio.setUsername(username);
         Connio.setPassword(password);
     }
 
+    /**
+     * Initializes the connio api client with given credentials and thread pool.
+     * @param username
+     * @param password
+     * @param executorService
+     */
     public static synchronized void init(String username, String password, ExecutorService executorService) {
         Connio.setUsername(username);
         Connio.setPassword(password);
@@ -66,8 +81,8 @@ public class Connio {
             }
 
             try {
-                Connio.apiClient = Connio.executorService == null ? new ConnioApiClientImpl(Connio.username, Connio.password) :
-                        new ConnioApiClientImpl(Connio.username, Connio.password, Connio.executorService);
+                Connio.apiClient = Connio.executorService == null ? new DefaultConnioApiClient(Connio.username, Connio.password) :
+                        new DefaultConnioApiClient(Connio.username, Connio.password, Connio.executorService);
 
             } catch (Exception e) {
                 throw new RuntimeException("Error initialising ConnioApiClient", e);
@@ -82,7 +97,7 @@ public class Connio {
     }
 
     private static synchronized void invalidate() {
-        if (Connio.apiClient != null) ((ConnioApiClientImpl)Connio.apiClient).terminate();
+        if (Connio.apiClient != null) ((DefaultConnioApiClient)Connio.apiClient).terminate();
         Connio.apiClient = null;
     }
 }

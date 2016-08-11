@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Device read request used to read devices and specify pagination.
+ */
 public class DeviceReadRequest extends ResourcePaginatedReadRequest<Device> {
 
     private Device.Status status;

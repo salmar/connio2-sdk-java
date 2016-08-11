@@ -1,12 +1,12 @@
 package com.connio.sdk.request;
 
 import com.connio.sdk.Connio;
-import com.connio.sdk.ConnioApiClientImpl;
+import com.connio.sdk.DefaultConnioApiClient;
 import com.connio.sdk.auth.ApiKeyContext;
 import com.connio.sdk.auth.ApiKeyScope;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
-import com.connio.sdk.request.apiclient.ApiClientAddRequest;
+import com.connio.sdk.request.apiclient.ApiClientCreateRequest;
 import com.connio.sdk.request.apiclient.ApiClientDeleteRequest;
 import com.connio.sdk.request.apiclient.ApiClientUpdateRequest;
 import com.connio.sdk.resource.apiclient.ApiClient;
@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 public class ApiClientRequestsTest {
 
     @Mocked
-    private ConnioApiClientImpl connioApiClient;
+    private DefaultConnioApiClient connioApiClient;
 
     @Mocked
     private Response response;
@@ -42,7 +42,7 @@ public class ApiClientRequestsTest {
     @Test
     public void addRequestShouldPerformExpectedRequest() throws Exception {
         new Expectations() {{
-            final ApiClientAddRequest addRequest = new ApiClientAddRequest(context, scope)
+            final ApiClientCreateRequest addRequest = new ApiClientCreateRequest(context, scope)
                     .setDescription(apiClient.getDescription().orElse(""))
                     .setTags(apiClient.getTags())
                     .setRateLimit("1m");
@@ -53,7 +53,7 @@ public class ApiClientRequestsTest {
             connioApiClient.requestAsync(request); result = CompletableFuture.completedFuture(response); times = 2;
         }};
 
-        final ApiClientAddRequest request = ApiClient.create(context, scope)
+        final ApiClientCreateRequest request = ApiClient.create(context, scope)
                 .setDescription(apiClient.getDescription().orElse(""))
                 .setTags(apiClient.getTags())
                 .setRateLimit("1m");

@@ -7,6 +7,9 @@ import com.connio.sdk.resource.data.DataFeed;
 import com.connio.sdk.resource.device.Device;
 import com.connio.sdk.resource.property.Property;
 
+/**
+ * Data feed write request used to write data to a device property.
+ */
 public class WriteDataFeedRequest extends ApiRequest<Void> {
 
     private final String deviceId;

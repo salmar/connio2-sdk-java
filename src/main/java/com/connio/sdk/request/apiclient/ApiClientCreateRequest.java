@@ -1,6 +1,6 @@
 package com.connio.sdk.request.apiclient;
 
-import com.connio.sdk.request.ResourceUpdateRequest;
+import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.auth.ApiKeyContext;
 import com.connio.sdk.auth.ApiKeyScope;
 import com.connio.sdk.http.Request;
@@ -12,8 +12,11 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.Objects;
 
+/**
+ * Api client create request used to create new api clients.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiClientAddRequest extends ResourceUpdateRequest<ApiClient> {
+public class ApiClientCreateRequest extends ResourceCreateRequest<ApiClient> {
 
     private String description;
 
@@ -26,8 +29,8 @@ public class ApiClientAddRequest extends ResourceUpdateRequest<ApiClient> {
     private String rateLimit;
 
 
-    public ApiClientAddRequest(@JsonProperty("context") ApiKeyContext context,
-                               @JsonProperty("scope") ImmutableSet<ApiKeyScope> scope) {
+    public ApiClientCreateRequest(@JsonProperty("context") ApiKeyContext context,
+                                  @JsonProperty("scope") ImmutableSet<ApiKeyScope> scope) {
         this.context = context;
         this.scope = scope;
     }
@@ -36,7 +39,7 @@ public class ApiClientAddRequest extends ResourceUpdateRequest<ApiClient> {
         return description;
     }
 
-    public ApiClientAddRequest setDescription(String description) {
+    public ApiClientCreateRequest setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -45,7 +48,7 @@ public class ApiClientAddRequest extends ResourceUpdateRequest<ApiClient> {
         return tags;
     }
 
-    public ApiClientAddRequest setTags(ImmutableSet<String> tags) {
+    public ApiClientCreateRequest setTags(ImmutableSet<String> tags) {
         this.tags = tags;
         return this;
     }
@@ -62,7 +65,7 @@ public class ApiClientAddRequest extends ResourceUpdateRequest<ApiClient> {
         return rateLimit;
     }
 
-    public ApiClientAddRequest setRateLimit(String rateLimit) {
+    public ApiClientCreateRequest setRateLimit(String rateLimit) {
         this.rateLimit = rateLimit;
         return this;
     }
@@ -81,7 +84,7 @@ public class ApiClientAddRequest extends ResourceUpdateRequest<ApiClient> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ApiClientAddRequest that = (ApiClientAddRequest) o;
+        ApiClientCreateRequest that = (ApiClientCreateRequest) o;
         return Objects.equals(getDescription(), that.getDescription()) &&
                 Objects.equals(getTags(), that.getTags()) &&
                 Objects.equals(getContext(), that.getContext()) &&

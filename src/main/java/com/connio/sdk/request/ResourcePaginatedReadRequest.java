@@ -6,6 +6,10 @@ import com.connio.sdk.resource.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Base abstract class for resource read with pagination requests.
+ * @param <T>
+ */
 public abstract class ResourcePaginatedReadRequest<T extends Resource> extends ApiRequest<RandomAccessResultPage<T>> {
 
     protected Long pageSize;

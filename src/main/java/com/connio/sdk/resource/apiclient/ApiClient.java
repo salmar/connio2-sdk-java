@@ -2,8 +2,7 @@ package com.connio.sdk.resource.apiclient;
 
 import com.connio.sdk.auth.ApiKeyContext;
 import com.connio.sdk.auth.ApiKeyScope;
-import com.connio.sdk.request.account.AccountFetchRequest;
-import com.connio.sdk.request.apiclient.ApiClientAddRequest;
+import com.connio.sdk.request.apiclient.ApiClientCreateRequest;
 import com.connio.sdk.request.apiclient.ApiClientDeleteRequest;
 import com.connio.sdk.request.apiclient.ApiClientFetchRequest;
 import com.connio.sdk.request.apiclient.ApiClientUpdateRequest;
@@ -18,6 +17,9 @@ import org.joda.time.DateTime;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Api client resource
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiClient extends Resource<ApiClientUpdateRequest, ApiClientDeleteRequest> {
 
@@ -85,15 +87,32 @@ public class ApiClient extends Resource<ApiClientUpdateRequest, ApiClientDeleteR
         return new ApiClientFetchRequest(apiClientId);
     }
 
-    public static ApiClientAddRequest create(ApiKeyContext context, ImmutableSet<ApiKeyScope> scopes) {
-        return new ApiClientAddRequest(context, scopes);
+    /**
+     * Creates and initialises a ApiClientCreateRequest with minimum data to create a new api client. Note that the
+     * returning ApiClientCreateRequest can be completed with all desired information that the request permits before
+     * executing it.
+     * @param context
+     * @param scopes
+     * @return
+     */
+    public static ApiClientCreateRequest create(ApiKeyContext context, ImmutableSet<ApiKeyScope> scopes) {
+        return new ApiClientCreateRequest(context, scopes);
     }
 
+    /**
+     * Return a ApiClientUpdateRequest for the current api client to be completed with the data that wants to be updated
+     * before executing the request.
+     * @return ApiClientUpdateRequest.
+     */
     @Override
     public ApiClientUpdateRequest update() {
         return new ApiClientUpdateRequest(this);
     }
 
+    /**
+     * Return a ApiClientDeleteRequest for the current api client in order to delete it when executing.
+     * @return
+     */
     @Override
     public ApiClientDeleteRequest delete() {
         return new ApiClientDeleteRequest(this);

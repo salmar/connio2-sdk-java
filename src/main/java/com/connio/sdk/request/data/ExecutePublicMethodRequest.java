@@ -3,10 +3,13 @@ package com.connio.sdk.request.data;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
 import com.connio.sdk.request.ApiRequest;
-import com.connio.sdk.resource.data.MethodResult;
+import com.connio.sdk.response.MethodResult;
 import com.connio.sdk.resource.device.Device;
 import com.connio.sdk.resource.method.Method;
 
+/**
+ * Execute public method request used to invoke public methods that accept parameters.
+ */
 public class ExecutePublicMethodRequest extends ApiRequest<Object> {
 
     private final String deviceId;

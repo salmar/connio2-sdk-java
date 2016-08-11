@@ -1,13 +1,16 @@
 package com.connio.sdk.request.account;
 
-import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.http.Request;
 import com.connio.sdk.http.Response;
+import com.connio.sdk.request.ResourceCreateRequest;
 import com.connio.sdk.resource.account.Account;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Objects;
 
+/**
+ * Account create request used to create new accounts.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountCreateRequest extends ResourceCreateRequest<Account> {
 
